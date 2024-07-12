@@ -30,21 +30,28 @@ def home(request):
     else:
         previous_month_day_finder = calendar.monthrange(selected_year, previous_month)
 
+
     previous_months_days = []
-    current_month_days = []
-    next_month_days = []
+    current_months_days = []
+    next_months_days = []
+    all_days = []
+
     display_first_day = previous_month_day_finder[1] - number_of_days_of_previous_month
 
     for day in range(display_first_day, previous_month_day_finder[1]):
         previous_months_days.append(day+1)
-
+        all_days.append(day+1)
     for day in range(1, first_day_finder[1]+1):
-        current_month_days.append(day)
+        current_months_days.append(day)
+        all_days.append(day)
 
     for day in range(1, number_of_days_of_next_month+1):
-        next_month_days.append(day)
+        next_months_days.append(day)
+        all_days.append(day)
 
-    print(number_of_days_of_previous_month, first_day_finder[1], number_of_days_of_next_month, display_first_day, "previous month:", previous_months_days, "current month:", current_month_days, "next month:", next_month_days)
+
+
+    print(number_of_days_of_previous_month, first_day_finder[1], number_of_days_of_next_month, display_first_day, "previous month:", previous_months_days, "current month:", current_months_days, "next month:", next_months_days, "all", all_days)
     return render(request, 'hometwo.html')
 
 
