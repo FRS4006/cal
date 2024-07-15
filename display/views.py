@@ -57,18 +57,18 @@ def home(request):
 
     for day in range(display_first_day, previous_month_day_finder[1]):
         # this will be zero if there are 7 days in the previous week
-        previous_months_days.append(day+1)
-        all_days.append(day+1)
+        previous_months_days.append({'day': day+1, 'event': ""})
+        all_days.append({'day': day+1, 'event': ""})
         # put the record of this number existing in the places it will be looked for
     for day in range(1, date_info[1]+1):
         # for the days in the month we are looking at add the days to the arrays
-        current_months_days.append(day)
-        all_days.append(day)
+        current_months_days.append({'day': day, 'event': ""})
+        all_days.append({'day': day, 'event': ""})
 
     for day in range(1, number_of_days_of_next_month+1):
         # for the number of days that will be displayed from the next month add the days to the arrays
-        next_months_days.append(day)
-        all_days.append(day)
+        next_months_days.append({'day': day, 'event': ""})
+        all_days.append({'day': day, 'event': ""})
 
     
     calendarevent_all = CalendarEvent.objects.all()
@@ -79,10 +79,10 @@ def home(request):
     for event in calendarevent_all:
         if event.date_of_event.month == selected_month and event.date_of_event.year == selected_year:
             # if the month and year in the date are equal to the selected month and year add the event to the list of events to display
-            display_events.append({"type": event.event_type, "day": event.date_of_event.day})
-            for day in all_days:
-                if event.date_of_event.day == day:
-                    print(day)
+            display_events.append({'type': event.event_type, 'day': event.date_of_event.day})
+            for number in all_days:
+                if event.date_of_event.day == number['day']:
+                    number['event'] = event.event_type
 
 
 

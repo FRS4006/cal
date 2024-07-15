@@ -271,35 +271,41 @@
               <div class = "row">
                 {% for day in first_week %}
                   <div class = "col">
-                    <li class= "list-group-item list-group-item-secondary"> {{day}}</li>
+                    <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
                   </div>
                 {% endfor %}
               </div>
               <div class = "row">
                 {% for day in second_week %}
                   <div class = "col">
-                    <li class= "list-group-item list-group-item-secondary"> {{day}}</li>
+                    <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
                   </div>
                 {% endfor %}
               </div>
               <div class = "row">
-                  {% for day in third_week %}
+                {% for day in third_week %}
+                  {% if day.event == "Support" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-secondary"> {{day}}</li>
+                      <li class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
                     </div>
+                  {% else %}
+                  <div class = "col">
+                    <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
+                  </div>
+                  {% endif %}
                 {% endfor %}
               </div>
               <div class = "row">
                 {% for day in fourth_week %}
                   <div class = "col">
-                    <li class= "list-group-item list-group-item-secondary"> {{day}}</li>
+                    <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
                   </div>
                 {% endfor %}
               </div>
               <div class = "row">
                 {% for day in fifth_week %}
                   <div class = "col">
-                    <li class= "list-group-item list-group-item-secondary"> {{day}}</li>
+                    <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
                   </div>
                 {% endfor %}
               </div>
