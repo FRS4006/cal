@@ -111,7 +111,7 @@ def home(request, input_selected_month, input_selected_year):
 
 
             for number in all_days:
-                # check all of the days, if the day attribute is equal to the day of an event
+                # check all of the days, if the day attribute is equal to the day of an event and the month of the event
                 if event.date_of_event.day == number['day'] and event.date_of_event.month == number['month']:
                     number['event'] = event.event_type
                     # set the event of the day to be equal to the event_type
@@ -140,7 +140,8 @@ def home(request, input_selected_month, input_selected_year):
             fifth_week.append(enumerator[1])
         else:
             sixth_week.append(enumerator[1])
-    print(sixth_week, selected_month, previous_month)
+
+            
     return render(request, 'hometwo.html', {'selected_year': selected_year,'selected_month': selected_month,'all_days': all_days, "first_week": first_week, 'second_week': second_week, 'third_week': third_week, 'fourth_week': fourth_week, 'fifth_week': fifth_week, 'sixth_week': sixth_week, 'events_to_display': display_events, 'next_month': next_month, 'previous_month': previous_month})
 
 
