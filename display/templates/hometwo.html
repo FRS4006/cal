@@ -240,8 +240,37 @@
       </div>
     </div> -->
           <div class="calendar">
-            <div class ="header">
-              <h1>Month (last two of year)</h1>
+            <div class ="text-center">
+              <div class="row">
+                <div class="col">
+                  <form method="post" action="{% url 'previous' previous_month=previous_month selected_year=selected_year %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" name="previous">Previous</button>
+                  </form>
+                </div>
+                <div class="col">
+                  <h1>{{selected_month}} / {{selected_year}}</h1>
+                </div>
+                <div class="col">
+                  <form method="post" action="{% url 'next' next_month=next_month selected_year=selected_year %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" name="next" >Next</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class = "row">
+                <div class = "col">
+                  <li class= "list-group-item list-group-item-primary"> Support </li>
+                </div>
+                <div class = "col">
+                  <li class= "list-group-item list-group-item-danger"> Friendship</li>
+                </div>
+                <div class = "col">
+                  <li class= "list-group-item list-group-item-secondary"> Health </li>
+                </div>
             </div>
               <ul class="weekdays">
                 <div class="row align-items-center">
@@ -270,16 +299,44 @@
               </ul>
               <div class = "row">
                 {% for day in first_week %}
-                  <div class = "col">
-                    <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
-                  </div>
+                  {% if day.event == "Support" %}
+                    <div class = "col">
+                      <li class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
+                    </div>
+                  {% elif day.event == "Friendship" %}
+                    <div class = "col">
+                      <li class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
+                    </div>
+                  {% elif day.event == "Health" %}
+                    <div class = "col">
+                      <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
+                    </div>
+                  {% else %}
+                    <div class = "col">
+                      <li class= "list-group-item"> {{day.day}}</li>
+                    </div>
+                  {% endif %}
                 {% endfor %}
               </div>
               <div class = "row">
                 {% for day in second_week %}
-                  <div class = "col">
-                    <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
-                  </div>
+                  {% if day.event == "Support" %}
+                    <div class = "col">
+                      <li class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
+                    </div>
+                  {% elif day.event == "Friendship" %}
+                    <div class = "col">
+                      <li class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
+                    </div>
+                  {% elif day.event == "Health" %}
+                    <div class = "col">
+                      <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
+                    </div>
+                  {% else %}
+                    <div class = "col">
+                      <li class= "list-group-item"> {{day.day}}</li>
+                    </div>
+                  {% endif %}
                 {% endfor %}
               </div>
               <div class = "row">
@@ -288,25 +345,40 @@
                     <div class = "col">
                       <li class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
                     </div>
+                  {% elif day.event == "Friendship" %}
+                    <div class = "col">
+                      <li class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
+                    </div>
+                  {% elif day.event == "Health" %}
+                    <div class = "col">
+                      <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
+                    </div>
                   {% else %}
-                  <div class = "col">
-                    <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
-                  </div>
+                    <div class = "col">
+                      <li class= "list-group-item"> {{day.day}}</li>
+                    </div>
                   {% endif %}
                 {% endfor %}
               </div>
               <div class = "row">
                 {% for day in fourth_week %}
-                  <div class = "col">
-                    <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
-                  </div>
-                {% endfor %}
-              </div>
-              <div class = "row">
-                {% for day in fifth_week %}
-                  <div class = "col">
-                    <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
-                  </div>
+                  {% if day.event == "Support" %}
+                    <div class = "col">
+                      <li class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
+                    </div>
+                  {% elif day.event == "Friendship" %}
+                    <div class = "col">
+                      <li class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
+                    </div>
+                  {% elif day.event == "Health" %}
+                    <div class = "col">
+                      <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
+                    </div>
+                  {% else %}
+                    <div class = "col">
+                      <li class= "list-group-item"> {{day.day}}</li>
+                    </div>
+                  {% endif %}
                 {% endfor %}
               </div>
           </div> 

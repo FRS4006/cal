@@ -19,5 +19,10 @@ from display import views as displayViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', displayViews.home)
+    path('', displayViews.initial, name ="initial"),
+    path('home/<int:input_selected_month>/<int:input_selected_year>', displayViews.home, name ="home"),
+
+    path('next/<int:next_month>/<int:selected_year>', displayViews.next, name='next'),
+    path('previous/<int:previous_month>/<int:selected_year>', displayViews.previous, name='previous')
+
 ]

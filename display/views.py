@@ -1,11 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import CalendarEvent
+from datetime import date
 import calendar 
 
-def home(request):
-    selected_month = 7
-    selected_year = 2024
+def initial(request):
+    # sets the initially displayed month to be the current month of the current year
+    today = date.today()
+    return redirect('home', input_selected_month=today.month, input_selected_year=today.year)
+
+def home(request, input_selected_month, input_selected_year):
+    selected_month = input_selected_month
+    selected_year = input_selected_year
     # will be subject to change based on selection
 
     if(selected_month==1):
@@ -81,9 +87,10 @@ def home(request):
             # if the month and year in the date are equal to the selected month and year add the event to the list of events to display
             display_events.append({'type': event.event_type, 'day': event.date_of_event.day})
             for number in all_days:
+                # check all of the days, if the day attribute is equal to the day of an event
                 if event.date_of_event.day == number['day']:
                     number['event'] = event.event_type
-
+                    # set the event of the day to be equal to the event_type
 
 
     enumeration_test = list(enumerate(all_days, start=1))
@@ -107,10 +114,30 @@ def home(request):
         else:
             fifth_week.append(enumerator[1])
 
-    print("events to display:", display_events, "total number of days populated for previous month:", number_of_days_of_previous_month,  "total number of days populated for next month:", number_of_days_of_next_month, "days from previous month:", previous_months_days, "days from current month:", current_months_days, "days from next month:", next_months_days)
-    # print("First Week", first_week, "Second Week", second_week, "Third Week", third_week, "Fourth Week", fourth_week, "Fifth Week", fifth_week)
-    return render(request, 'hometwo.html', {'all_days': all_days, "first_week": first_week, 'second_week': second_week, 'third_week': third_week, 'fourth_week': fourth_week, 'fifth_week': fifth_week, 'events_to_display': display_events})
+    return render(request, 'hometwo.html', {'selected_year': selected_year,'selected_month': selected_month,'all_days': all_days, "first_week": first_week, 'second_week': second_week, 'third_week': third_week, 'fourth_week': fourth_week, 'fifth_week': fifth_week, 'events_to_display': display_events, 'next_month': next_month, 'previous_month': previous_month})
+
+
+# to control the calendar buttons
+def next(request, next_month, selected_year):
+    if request.method == 'POST':
+        if(next_month == 1):
+            selected_year = selected_year + 1
+        #checking to see if the next year needs to be started
+
+        return redirect('home', input_selected_month=next_month, input_selected_year=selected_year)
+
+def previous(request, previous_month, selected_year):
+    if request.method == 'POST':
+        if(previous_month == 12):
+            selected_year = selected_year-1
+            #checking to make sure that it does not have to go back to a previous year
+
+
+    return redirect('home', input_selected_month=previous_month, input_selected_year=selected_year)
 
 
 
 # Create your views here.
+    
+    
+    
