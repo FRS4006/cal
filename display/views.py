@@ -4,9 +4,11 @@ from .models import CalendarEvent
 from datetime import date
 import calendar 
 
+today = date.today()
+
+
 def initial(request):
     # sets the initially displayed month to be the current month of the current year
-    today = date.today()
     return redirect('home', input_selected_month=today.month, input_selected_year=today.year)
 
 def home(request, input_selected_month, input_selected_year):
@@ -42,7 +44,7 @@ def home(request, input_selected_month, input_selected_year):
     if(number_of_days_of_previous_month == 7):
         # if there are 7 days from the previous month in its last week, then the next month should be calculated simply using the number of days left over after subtracting the number of days in the month from 35
 
-        number_of_days_of_next_month = 35-date_info[1]
+        number_of_days_of_next_month = 42-date_info[1]
         display_first_day = previous_month_day_finder[1]
         # this removes the catch from the for loop that comes later
 
@@ -50,7 +52,7 @@ def home(request, input_selected_month, input_selected_year):
         print(number_of_days_of_previous_month, previous_month_day_finder[1])
 
     else:
-        number_of_days_of_next_month = 35 - number_of_days_of_previous_month - date_info[1]
+        number_of_days_of_next_month = 42 - number_of_days_of_previous_month - date_info[1]
         # the remainder of the number of days from the 35 grid minus the number of days from the previous month, minus the number of days of the current month
         display_first_day = previous_month_day_finder[1] - number_of_days_of_previous_month
         # set the first day in the display to be the total number of days in the month minus the number of days that will be displayed from the previous month
@@ -63,18 +65,18 @@ def home(request, input_selected_month, input_selected_year):
 
     for day in range(display_first_day, previous_month_day_finder[1]):
         # this will be zero if there are 7 days in the previous week
-        previous_months_days.append({'day': day+1, 'event': ""})
-        all_days.append({'day': day+1, 'event': ""})
+        previous_months_days.append({'day': day+1, 'event': "", 'month':previous_month})
+        all_days.append({'day': day+1, 'event': "", 'month':previous_month})
         # put the record of this number existing in the places it will be looked for
     for day in range(1, date_info[1]+1):
         # for the days in the month we are looking at add the days to the arrays
-        current_months_days.append({'day': day, 'event': ""})
-        all_days.append({'day': day, 'event': ""})
+        current_months_days.append({'day': day, 'event': "", 'month':selected_month})
+        all_days.append({'day': day, 'event': "", 'month':selected_month})
 
     for day in range(1, number_of_days_of_next_month+1):
         # for the number of days that will be displayed from the next month add the days to the arrays
-        next_months_days.append({'day': day, 'event': ""})
-        all_days.append({'day': day, 'event': ""})
+        next_months_days.append({'day': day, 'event': "", 'month':next_month})
+        all_days.append({'day': day, 'event': "", 'month':next_month})
 
     
     calendarevent_all = CalendarEvent.objects.all()
@@ -86,9 +88,31 @@ def home(request, input_selected_month, input_selected_year):
         if event.date_of_event.month == selected_month and event.date_of_event.year == selected_year:
             # if the month and year in the date are equal to the selected month and year add the event to the list of events to display
             display_events.append({'type': event.event_type, 'day': event.date_of_event.day})
+
+
+        # elif event.date_of_event.month == previous_month and event.date_of_event.year == selected_year:
+
+        #     display_events.append({'type': event.event_type, 'day': event.date_of_event.day})
+
+
+        # elif event.date_of_event.month == previous_month and event.date_of_event.year == selected_year-1:
+
+        #     display_events.append({'type': event.event_type, 'day': event.date_of_event.day})
+    
+
+        # elif event.date_of_event.month == next_month and event.date_of_event.year == selected_year:
+
+        #     display_events.append({'type': event.event_type, 'day': event.date_of_event.day})
+
+
+        # elif event.date_of_event.month == next_month and event.date_of_event.year == selected_year+1:
+
+        #     display_events.append({'type': event.event_type, 'day': event.date_of_event.day})
+
+
             for number in all_days:
                 # check all of the days, if the day attribute is equal to the day of an event
-                if event.date_of_event.day == number['day']:
+                if event.date_of_event.day == number['day'] and event.date_of_event.month == number['month']:
                     number['event'] = event.event_type
                     # set the event of the day to be equal to the event_type
 
@@ -101,6 +125,7 @@ def home(request, input_selected_month, input_selected_year):
     third_week = []
     fourth_week = []
     fifth_week = []
+    sixth_week = []
     for enumerator in enumeration_test:
         # for each days position in the array it is checked for "week location" and then the date is added to that week
         if(enumerator[0] < 8):
@@ -111,10 +136,12 @@ def home(request, input_selected_month, input_selected_year):
             third_week.append(enumerator[1])
         elif(enumerator[0] < 29):
             fourth_week.append(enumerator[1])
-        else:
+        elif(enumerator[0] < 36):
             fifth_week.append(enumerator[1])
-
-    return render(request, 'hometwo.html', {'selected_year': selected_year,'selected_month': selected_month,'all_days': all_days, "first_week": first_week, 'second_week': second_week, 'third_week': third_week, 'fourth_week': fourth_week, 'fifth_week': fifth_week, 'events_to_display': display_events, 'next_month': next_month, 'previous_month': previous_month})
+        else:
+            sixth_week.append(enumerator[1])
+    print(sixth_week, selected_month, previous_month)
+    return render(request, 'hometwo.html', {'selected_year': selected_year,'selected_month': selected_month,'all_days': all_days, "first_week": first_week, 'second_week': second_week, 'third_week': third_week, 'fourth_week': fourth_week, 'fifth_week': fifth_week, 'sixth_week': sixth_week, 'events_to_display': display_events, 'next_month': next_month, 'previous_month': previous_month})
 
 
 # to control the calendar buttons
@@ -124,7 +151,7 @@ def next(request, next_month, selected_year):
             selected_year = selected_year + 1
         #checking to see if the next year needs to be started
 
-        return redirect('home', input_selected_month=next_month, input_selected_year=selected_year)
+    return redirect('home', input_selected_month=next_month, input_selected_year=selected_year)
 
 def previous(request, previous_month, selected_year):
     if request.method == 'POST':
