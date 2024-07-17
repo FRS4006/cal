@@ -18,7 +18,7 @@
       } */
 
       body{
-        min-width:800px;
+        min-width:400px;
         width: auto;
         /* width:1000px; */
       }
@@ -275,7 +275,7 @@
               <ul class="weekdays">
                 <div class="row align-items-center">
                   <div class = "col">
-                    <li> Su </li>
+                    <li id="test"> Su </li>
                   </div>
                   <div class = "col">
                     <li> M </li>
@@ -339,19 +339,20 @@
                   {% endif %} -->
                   {% if day.event == "Support" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% elif day.event == "Friendship" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% elif day.event == "Health" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
+                      <a href="{% url 'tester' day.day %}">Check event</a>
                     </div>
                   {% else %}
                     <div class = "col">
-                      <li class= "list-group-item"> {{day.day}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item"> {{day.day}}</li>
                     </div>
                   {% endif %}
                 {% endfor %}
@@ -360,19 +361,19 @@
                 {% for day in second_week %}
                   {% if day.event == "Support" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% elif day.event == "Friendship" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% elif day.event == "Health" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% else %}
                     <div class = "col">
-                      <li class= "list-group-item"> {{day.day}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item"> {{day.day}}</li>
                     </div>
                   {% endif %}
                 {% endfor %}
@@ -381,19 +382,19 @@
                 {% for day in third_week %}
                   {% if day.event == "Support" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% elif day.event == "Friendship" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% elif day.event == "Health" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% else %}
                     <div class = "col">
-                      <li class= "list-group-item"> {{day.day}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item"> {{day.day}}</li>
                     </div>
                   {% endif %}
                 {% endfor %}
@@ -402,19 +403,19 @@
                 {% for day in fourth_week %}
                   {% if day.event == "Support" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% elif day.event == "Friendship" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% elif day.event == "Health" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% else %}
                     <div class = "col">
-                      <li class= "list-group-item"> {{day.day}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item"> {{day.day}}</li>
                     </div>
                   {% endif %}
                 {% endfor %}
@@ -423,19 +424,19 @@
                 {% for day in fifth_week %}
                   {% if day.event == "Support" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% elif day.event == "Friendship" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% elif day.event == "Health" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% else %}
                     <div class = "col">
-                      <li class= "list-group-item"> {{day.day}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item"> {{day.day}}</li>
                     </div>
                   {% endif %}
                 {% endfor %}
@@ -444,24 +445,45 @@
                 {% for day in sixth_week %}
                   {% if day.event == "Support" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-primary"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% elif day.event == "Friendship" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-danger"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% elif day.event == "Health" %}
                     <div class = "col">
-                      <li class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-secondary"> {{day.day}}, {{day.event}}</li>
                     </div>
                   {% else %}
                     <div class = "col">
-                      <li class= "list-group-item"> {{day.day}}</li>
+                      <li id={{day.day}}_{{day.month}} class= "list-group-item"> {{day.day}}</li>
                     </div>
                   {% endif %}
                 {% endfor %}
               </div>
           </div> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script>
+
+          function isElementClicked(id){
+            var test = id.split("_")
+            // the ID's are constructed of day_month, so this seperates those numbers
+            console.log(test[0], test[1])
+            console.log(display_events)
+          }
+    
+          var testclick = document.querySelectorAll("li");
+          for(let i = 0; i < testclick.length; i++){
+            // for each list item
+            if(testclick[i].id != ""){
+              // if it has an id, give it an event listener for when it is clicked
+              testclick[i].addEventListener("click", function(){
+                isElementClicked(testclick[i].id);
+              }); 
+            }
+          }
+
+        </script>
+      </body>
 </html>

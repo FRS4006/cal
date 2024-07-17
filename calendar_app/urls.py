@@ -21,7 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', displayViews.initial, name ="initial"),
     path('home/<int:input_selected_month>/<int:input_selected_year>', displayViews.home, name ="home"),
-
+    
+    path('tester/<int:day>', displayViews.tester, name='tester'),
     path('next/<int:next_month>/<int:selected_year>', displayViews.next, name='next'),
     path('previous/<int:previous_month>/<int:selected_year>', displayViews.previous, name='previous')
 

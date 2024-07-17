@@ -142,7 +142,7 @@ def home(request, input_selected_month, input_selected_year):
             sixth_week.append(enumerator[1])
 
             
-    return render(request, 'hometwo.html', {'selected_year': selected_year,'selected_month': selected_month,'all_days': all_days, "first_week": first_week, 'second_week': second_week, 'third_week': third_week, 'fourth_week': fourth_week, 'fifth_week': fifth_week, 'sixth_week': sixth_week, 'events_to_display': display_events, 'next_month': next_month, 'previous_month': previous_month})
+    return render(request, 'hometwo.html', {'selected_year': selected_year,'selected_month': selected_month,'all_days': all_days, "first_week": first_week, 'second_week': second_week, 'third_week': third_week, 'fourth_week': fourth_week, 'fifth_week': fifth_week, 'sixth_week': sixth_week, 'display_events': display_events, 'next_month': next_month, 'previous_month': previous_month})
 
 
 # to control the calendar buttons
@@ -163,7 +163,9 @@ def previous(request, previous_month, selected_year):
 
     return redirect('home', input_selected_month=previous_month, input_selected_year=selected_year)
 
-
+def tester(request, day):
+    print(day)
+    return redirect('home', input_selected_month=today.month, input_selected_year=today.year)
 
 # Create your views here.
     
