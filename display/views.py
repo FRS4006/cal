@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import CalendarEvent
 from datetime import date
-import calendar 
+import calendar
+import json
+
 
 today = date.today()
 
@@ -87,7 +89,11 @@ def home(request, input_selected_month, input_selected_year):
     for event in calendarevent_all:
         if event.date_of_event.month == selected_month and event.date_of_event.year == selected_year:
             # if the month and year in the date are equal to the selected month and year add the event to the list of events to display
-            display_events.append({'type': event.event_type, 'day': event.date_of_event.day})
+            string_date = event.date_of_event.strftime('%h/%d/%y')
+            string_hour = event.date_of_event.strftime("%I:%M:%p")
+            # date cannot be passed as json, so this turns it into a string
+
+            display_events.append({'title': event.title, 'display_date': string_date, 'display_hour': string_hour, 'type': event.event_type, 'day': event.date_of_event.day, 'month': event.date_of_event.month, 'year': event.date_of_event.year, 'location': event.location, 'description': event.description, 'link': event.zoom_url})
 
 
         # elif event.date_of_event.month == previous_month and event.date_of_event.year == selected_year:
@@ -109,12 +115,16 @@ def home(request, input_selected_month, input_selected_year):
 
         #     display_events.append({'type': event.event_type, 'day': event.date_of_event.day})
 
+        # these commented out pieces would be to add the logic for displaying from the past months and next months events as well
 
             for number in all_days:
                 # check all of the days, if the day attribute is equal to the day of an event and the month of the event
                 if event.date_of_event.day == number['day'] and event.date_of_event.month == number['month']:
                     number['event'] = event.event_type
                     # set the event of the day to be equal to the event_type
+
+    json_display_events = json.dumps(display_events)
+
 
 
     enumeration_test = list(enumerate(all_days, start=1))
@@ -142,7 +152,7 @@ def home(request, input_selected_month, input_selected_year):
             sixth_week.append(enumerator[1])
 
             
-    return render(request, 'hometwo.html', {'selected_year': selected_year,'selected_month': selected_month,'all_days': all_days, "first_week": first_week, 'second_week': second_week, 'third_week': third_week, 'fourth_week': fourth_week, 'fifth_week': fifth_week, 'sixth_week': sixth_week, 'display_events': display_events, 'next_month': next_month, 'previous_month': previous_month})
+    return render(request, 'hometwo.html', {'json_display_events': json_display_events, 'selected_year': selected_year,'selected_month': selected_month,'all_days': all_days, "first_week": first_week, 'second_week': second_week, 'third_week': third_week, 'fourth_week': fourth_week, 'fifth_week': fifth_week, 'sixth_week': sixth_week, 'display_events': display_events, 'next_month': next_month, 'previous_month': previous_month})
 
 
 # to control the calendar buttons
@@ -154,17 +164,19 @@ def next(request, next_month, selected_year):
 
     return redirect('home', input_selected_month=next_month, input_selected_year=selected_year)
 
+
 def previous(request, previous_month, selected_year):
     if request.method == 'POST':
         if(previous_month == 12):
             selected_year = selected_year-1
             #checking to make sure that it does not have to go back to a previous year
 
-
     return redirect('home', input_selected_month=previous_month, input_selected_year=selected_year)
+
 
 def tester(request, day):
     print(day)
+
     return redirect('home', input_selected_month=today.month, input_selected_year=today.year)
 
 # Create your views here.
