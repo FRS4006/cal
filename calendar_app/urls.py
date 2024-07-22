@@ -1,18 +1,3 @@
-"""calendar_app URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 from display import views as displayViews
@@ -21,9 +6,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', displayViews.initial, name ="initial"),
     path('home/<int:input_selected_month>/<int:input_selected_year>', displayViews.home, name ="home"),
+    # This leads to the population of the selected month
     
-    path('tester/<int:day>', displayViews.tester, name='tester'),
     path('next/<int:next_month>/<int:selected_year>', displayViews.next, name='next'),
+    # This is to check that the next month is not in the next year, and then to display that next month
     path('previous/<int:previous_month>/<int:selected_year>', displayViews.previous, name='previous')
+    # This is to check that the previous month is not in the previous year, and then to display that previous month
 
 ]

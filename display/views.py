@@ -173,13 +173,6 @@ def previous(request, previous_month, selected_year):
 
     return redirect('home', input_selected_month=previous_month, input_selected_year=selected_year)
 
-
-def tester(request, day):
-    print(day)
-
-    return redirect('home', input_selected_month=today.month, input_selected_year=today.year)
-
-# Create your views here.
     
     
     
