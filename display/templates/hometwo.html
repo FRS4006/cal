@@ -46,6 +46,28 @@
         color: white;
         /* Setting the color of the link inside of the box to be white */
       }
+      .dot {
+        height: 2.5vh;
+        width: 2.5vh;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .red{
+        background-color: #d37676;
+      }
+      .gray{
+        background-color: #8b8989;
+      }
+      .blue{
+        background-color: #4382e0;
+      }
+      .big{
+        height: 20vh;
+        width: 20vh;
+      }
+      .container{
+        border-style: solid;
+      }
     </style>
   </head>
   <body>
@@ -77,13 +99,17 @@
 
             <div class = "row">
                 <div class = "col box">
-                  <li class= "list-group-item list-group-item-primary"> Support </li>
+                  <span class="dot red big"></span>
+
+                  <span> Support </span>
                 </div>
                 <div class = "col box">
-                  <li class= "list-group-item list-group-item-danger"> Friendship</li>
+                  <span class="dot blue big"></span>
+                  <span>Friendship</span>
                 </div>
                 <div class = "col box">
-                  <li class= "list-group-item list-group-item-secondary"> Health </li>
+                  <span class="dot gray big"></span>
+                  <span> Health </span>
                 </div>
             </div>
             <!-- add Today example when ready -->
@@ -157,7 +183,13 @@
               <div class = "row">
                 {% for day in sixth_week %}
                   <div class = "col">
-                    <li id={{day.day}}_{{day.month}}_6 class= "list-group-item"> {{day.day}}</li>
+                    <div class = "container">
+                      <span>{{day.day}}</span>
+                      <span class="dot red"></span>
+                      <span class="dot blue"></span>
+                      <span class="dot gray"></span>
+                    </div>
+                    <!-- <li id={{day.day}}_{{day.month}}_6 class= "list-group-item"> {{day.day}}</li> -->
                   </div>
                 {% endfor %}
                 </div>
@@ -315,12 +347,15 @@
             for(let i = 0; i < li_selector.length; i++){
               if(li_selector[i].id != ""){
                 var population_id_splitter = li_selector[i].id.split("_")
+                var multi_day = [];
                 for(let d = 0; d < display.length; d++){
                   if(display[d].day == population_id_splitter[0] && display[d].month == population_id_splitter[1]){
+                    multi_day.push(display[d].title);
                     var selected_text = document.createTextNode(display[d].day);
                     li_selector[i].innerHTML = '';
                     li_selector[i].setAttribute("data-bs-toggle", "modal");
                     li_selector[i].setAttribute("data-bs-target", "#exampleModal");
+
                     if(display[d].type == 'Health'){
                       li_selector[i].setAttribute("class", "list-group-item list-group-item-secondary");
                     }
@@ -329,6 +364,11 @@
                     }
                     else{
                       li_selector[i].setAttribute("class", "list-group-item list-group-item-danger");
+                    }
+
+                    if(multi_day.length > 1){
+                      console.log(multi_day);
+                      li_selector[i].setAttribute("class", "list-group-item list-group-item-success");
                     }
                     li_selector[i].appendChild(selected_text);
                     console.log(li_selector[i])
