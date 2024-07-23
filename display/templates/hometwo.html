@@ -117,126 +117,54 @@
 
               <div class = "row">
                 {% for day in first_week %}
-                  {% if day.event == "Support" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-primary"> {{day.day}}</li>
-                    </div>
-                  {% elif day.event == "Friendship" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-danger"> {{day.day}} </li>
-                    </div>
-                  {% elif day.event == "Health" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-secondary"> 
-                        {{day.day}}
-                      </li>
-                    </div>
-                  {% else %}
-                    <div class = "col">
-                      <li id={{day.day}}_{{day.month}} class= "list-group-item"> {{day.day}}</li>
-                    </div>
-                  {% endif %}
+                  <div class = "col">
+                    <li id={{day.day}}_{{day.month}}_1 class= "list-group-item"> {{day.day}}</li>
+                  </div>
                 {% endfor %}
               </div>
-              <!-- Each week is currently setup so that if the day has an event of the type, its class is assigned to the specific decoration it needs. I am going to have to add logic that checks if today is today-->
 
               <div class = "row">
                 {% for day in second_week %}
-                  {% if day.event == "Support" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-primary"> {{day.day}}</li>
-                    </div>
-                  {% elif day.event == "Friendship" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-danger"> {{day.day}} </li>
-                    </div>
-                  {% elif day.event == "Health" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-secondary"> 
-                        {{day.day}}
-                      </li>
-                    </div>
-                  {% else %}
-                    <div class = "col">
-                      <li id={{day.day}}_{{day.month}} class= "list-group-item"> {{day.day}}</li>
-                    </div>
-                  {% endif %}
+                  <div class = "col">
+                    <li id={{day.day}}_{{day.month}}_2 class= "list-group-item"> {{day.day}}</li>
+                  </div>
                 {% endfor %}
               </div>
 
               <div class = "row">
                 {% for day in third_week %}
-                  {% if day.event == "Support" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-primary"> {{day.day}}</li>
-                    </div>
-                  {% elif day.event == "Friendship" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-danger"> {{day.day}} </li>
-                    </div>
-                  {% elif day.event == "Health" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-secondary"> 
-                        {{day.day}}
-                      </li>
-                    </div>
-                  {% else %}
-                    <div class = "col">
-                      <li id={{day.day}}_{{day.month}} class= "list-group-item"> {{day.day}}</li>
-                    </div>
-                  {% endif %}
+                  <div class = "col">
+                    <li id={{day.day}}_{{day.month}}_3 class= "list-group-item"> {{day.day}}</li>
+                  </div>
                 {% endfor %}
               </div>
 
               <div class = "row">
                 {% for day in fourth_week %}
-                  {% if day.event == "Support" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-primary"> {{day.day}}</li>
-                    </div>
-                  {% elif day.event == "Friendship" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-danger"> {{day.day}} </li>
-                    </div>
-                  {% elif day.event == "Health" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-secondary"> 
-                        {{day.day}}
-                      </li>
-                    </div>
-                  {% else %}
-                    <div class = "col">
-                      <li id={{day.day}}_{{day.month}} class= "list-group-item"> {{day.day}}</li>
-                    </div>
-                  {% endif %}
+                  <div class = "col">
+                    <li id={{day.day}}_{{day.month}}_4 class= "list-group-item"> {{day.day}}</li>
+                  </div>
                 {% endfor %}
               </div>
 
               <div class = "row">
                 {% for day in fifth_week %}
-                  {% if day.event == "Support" %}
                     <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-primary"> {{day.day}}</li>
+                      <li id={{day.day}}_{{day.month}}_5 class= "list-group-item"> {{day.day}}</li>
                     </div>
-                  {% elif day.event == "Friendship" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-danger"> {{day.day}} </li>
-                    </div>
-                  {% elif day.event == "Health" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-secondary"> 
-                        {{day.day}}
-                      </li>
-                    </div>
-                  {% else %}
-                    <div class = "col">
-                      <li id={{day.day}}_{{day.month}} class= "list-group-item"> {{day.day}}</li>
-                    </div>
-                  {% endif %}
                 {% endfor %}
               </div>
-
               <div class = "row">
+                {% for day in sixth_week %}
+                  <div class = "col">
+                    <li id={{day.day}}_{{day.month}}_6 class= "list-group-item"> {{day.day}}</li>
+                  </div>
+                {% endfor %}
+                </div>
+          </div>
+
+
+              <!-- <div class = "row">
                 {% for day in sixth_week %}
                   {% if day.event == "Support" %}
                     <div class = "col">
@@ -258,8 +186,7 @@
                     </div>
                   {% endif %}
                 {% endfor %}
-              </div>
-          </div>
+              </div> -->
 
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -301,12 +228,13 @@
           // these variables all refer to specific ID's in the modal that will be used to change information later
 
 
+          var display = {{json_display_events|safe}};
+          // this is necessary to seperate the array from views.py into pieces of information that can be read by the script
+
           function isElementClicked(id){
             var id_splitter = id.split("_")
             // the ID's are constructed of day_month, so this seperates those numbers
             // console.log(id_splitter[0], id_splitter[1])
-            var display = {{json_display_events|safe}};
-            // this is necessary to seperate the array from views.py into pieces of information that can be read by the script
 
             for(let i = 0; i < display.length; i++){
               // this for loop checks each item in the list of displayable items
@@ -362,22 +290,55 @@
                 else{
                   modal_link.innerHTML = '';
                 }
+
               }
+            }
+            if(id_splitter[2] == 5){
+              console.log(id_splitter[0], id_splitter[1])
             }
           }
     
-          var modal_click = document.querySelectorAll("li");
+          var li_selector = document.querySelectorAll("li");
           // store all line items
-          for(let i = 0; i < modal_click.length; i++){
+          for(let i = 0; i < li_selector.length; i++){
             // for each list item stored
-            if(modal_click[i].id != ""){
+            if(li_selector[i].id != ""){
               // if it has an id, give it an event listener for when it is clicked
-              modal_click[i].addEventListener("click", function(){
-                isElementClicked(modal_click[i].id);
+              li_selector[i].addEventListener("click", function(){
+                isElementClicked(li_selector[i].id);
                 // pass the id of that clicked li to isElementClicked
               }); 
             }
           }
+
+          function populator(){
+            for(let i = 0; i < li_selector.length; i++){
+              if(li_selector[i].id != ""){
+                var population_id_splitter = li_selector[i].id.split("_")
+                for(let d = 0; d < display.length; d++){
+                  if(display[d].day == population_id_splitter[0] && display[d].month == population_id_splitter[1]){
+                    var selected_text = document.createTextNode(display[d].day);
+                    li_selector[i].innerHTML = '';
+                    li_selector[i].setAttribute("data-bs-toggle", "modal");
+                    li_selector[i].setAttribute("data-bs-target", "#exampleModal");
+                    if(display[d].type == 'Health'){
+                      li_selector[i].setAttribute("class", "list-group-item list-group-item-secondary");
+                    }
+                    else if(display[d].type == 'Support'){
+                      li_selector[i].setAttribute("class", "list-group-item list-group-item-primary");
+                    }
+                    else{
+                      li_selector[i].setAttribute("class", "list-group-item list-group-item-danger");
+                    }
+                    li_selector[i].appendChild(selected_text);
+                    console.log(li_selector[i])
+                  }
+                }
+              }; 
+            }
+          }
+          populator();
+
         </script>
       </body>
 </html>
