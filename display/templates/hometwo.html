@@ -68,9 +68,13 @@
       .container{
         border-style: solid;
         border-color: gray;
+        border-width: 1vh;
       }
       .today{
         border-color: black;
+      }
+      .other_month{
+        border-color: red;
       }
       .col{
         min-width: 0;
@@ -105,19 +109,21 @@
             </div>
 
             <div class = "row">
-                <div class = "col box">
-                  <text_span class="dot red big"></text_span>
-
-                  <text_span> Support </text_span>
-                </div>
-                <div class = "col box">
-                  <text_span class="dot blue big"></text_span>
-                  <text_span>Friendship</text_span>
-                </div>
-                <div class = "col box">
-                  <text_span class="dot gray big"></text_span>
-                  <text_span> Health </text_span>
-                </div>
+              <div class = "col">
+                <div class = "container today">Today</div>
+              </div>
+              <div class = "col box">
+                <text_span class="dot red big"></text_span>
+                <text_span> Support </text_span>
+              </div>
+              <div class = "col box">
+                <text_span class="dot blue big"></text_span>
+                <text_span>Friendship</text_span>
+              </div>
+              <div class = "col box">
+                <text_span class="dot gray big"></text_span>
+                <text_span> Health </text_span>
+              </div>
             </div>
             <!-- add Today example when ready -->
 
@@ -355,6 +361,7 @@
             }
           }
 
+          checked = 0;
           function populator(){
             var container_selector = document.querySelectorAll(".container");
             // find the containers that will hold the information about the days
@@ -387,9 +394,22 @@
               var today = new Date();
               if(today.getDate() == population_container_id_splitter[0] && today.getMonth()+1 == population_container_id_splitter[1]){
                 // if the day and month from the container's ID match todays date (get month is on a scale from 0-11)
-                console.log(container_selector[j])
                 container_selector[j].setAttribute("class", "container today")
+                // set the class to be today
               }
+
+              if(population_container_id_splitter[2] == 3 && checked == 0){
+                var current_month = population_container_id_splitter[1]
+                checked=1;
+                for(let k= 0; k < container_selector.length; k++){
+                  var other_month_container_id_splitter = container_selector[k].id.split("_");
+                  if(other_month_container_id_splitter[1] != current_month && container_selector[k].id != ""){
+                    container_selector[k].setAttribute("class", "container other_month")
+                  }
+                }
+              }
+
+
             }
 
             var span_selector = document.querySelectorAll("span");
