@@ -17,24 +17,6 @@
         width: auto;
         /* The spacing starts looking odd below the min width value and the width sets to auto so that the element can resize with the screen */
       }
-
-      li{
-        border-color: black;
-      }
-
-      .box {
-        position: relative;
-        width: 10vh;		/* desired width */
-      }
-      .box:before {
-        content: "";
-        float: left;
-        padding-top: 10vh; 	/* initial ratio of 1:1*/
-        border: .5vh black;
-
-      }
-      /* The box classes are tests for spacing on the boxees at the top */
-      
       .black-box{
         background-color: black;
         text-align: center;
@@ -68,7 +50,9 @@
       .container{
         border-style: solid;
         border-color: gray;
-        border-width: 1vh;
+        border-width: 1vw;
+        height: 20vh;
+        width: 12.5vw;
       }
       /* for the outlines of the containers holding the spans */
 
@@ -84,6 +68,8 @@
 
       .col{
         min-width: 0;
+        text-align: center;
+        vertical-align: middle;
       }
       /* they will flex if you do not set this */
 
@@ -97,7 +83,7 @@
                   <form method="post" action="{% url 'previous' previous_month=previous_month selected_year=selected_year %}">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" name="previous">Previous</button>
+                    <button type="submit" name="previous"><i class="bi bi-arrow-left"></i></button>
                   </form>
                   <!-- this form sends you to the previous month -->
                 </div>
@@ -110,7 +96,7 @@
                   <form method="post" action="{% url 'next' next_month=next_month selected_year=selected_year %}">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" name="next" >Next</button>
+                    <button type="submit" name="next" > <i class="bi bi-arrow-right"></i></button>
                     <!-- this form sends you to the next month -->
                   </form>
                 </div>
@@ -121,15 +107,15 @@
               <div class = "col">
                 <div class = "container today">Today</div>
               </div>
-              <div class = "col box">
+              <div class = "col">
                 <text_span class="dot red"></text_span>
                 <text_span> Support </text_span>
               </div>
-              <div class = "col box">
+              <div class = "col">
                 <text_span class="dot blue"></text_span>
                 <text_span>Friendship</text_span>
               </div>
-              <div class = "col box">
+              <div class = "col">
                 <text_span class="dot gray"></text_span>
                 <text_span> Health </text_span>
               </div>
@@ -264,7 +250,7 @@
                 <div id="modal_desc"></div>
                 <br>
                 <div class = "black-box">
-                  <a id="modal_link" href="#"></a>
+                  <a id="modal_link" href="#" target="_blank"></a>
                 </div>
               </div>
                 <div class="modal-footer">
@@ -378,6 +364,7 @@
 
           function populator(){
             var container_selector = document.querySelectorAll(".container");
+            var br_er = document.createElement("br")
             // find the containers that will hold the information about the days
             for(let j= 0; j < container_selector.length; j++ ){
               var population_container_id_splitter = container_selector[j].id.split("_");
@@ -391,17 +378,20 @@
                       hgs.setAttribute("id", display[d].day + "_" +display[d].month + "_" + display[d].title);
                       // sets the id to day_month_title which can be used to find the event later
                       container_selector[j].appendChild(hgs);
+                      container_selector[j].appendChild(br_er);
                       // append the event span to the container
                     }
                     else if(display[d].type == 'Support'){
                       var sgs = red_span.cloneNode(true)
                       sgs.setAttribute("id", display[d].day + "_" +display[d].month + "_" + display[d].title);
                       container_selector[j].appendChild(sgs);
+                      container_selector[j].appendChild(br_er);
                     }
                     else{
                       var fgs = blue_span.cloneNode(true)
                       fgs.setAttribute("id", display[d].day + "_" +display[d].month + "_" + display[d].title);
                       container_selector[j].appendChild(fgs);
+                      container_selector[j].appendChild(br_er);
                     }
                 }
               }
