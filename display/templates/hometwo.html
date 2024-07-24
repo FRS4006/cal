@@ -64,12 +64,6 @@
         background-color: #4382e0;
       }
       /* these are for coloring the nodes that represent the events */
-
-      .big{
-        height: 20vh;
-        width: 20vh;
-      }
-      /* I will probably be removing this since in the diagram the icons are all the same size */
       
       .container{
         border-style: solid;
@@ -108,7 +102,8 @@
                   <!-- this form sends you to the previous month -->
                 </div>
                 <div class="col">
-                  <h1>{{selected_month}} / {{selected_year}}</h1>
+                  <!-- <h1 id="month_year_display">{{selected_month}} / {{selected_year}}</h1> -->
+                  <h1 id="month_year_display">{{selected_year}}</h1>
                 </div>
                 <!-- I would like to change this so that the selected month displays as a string -->
                 <div class="col">
@@ -127,15 +122,15 @@
                 <div class = "container today">Today</div>
               </div>
               <div class = "col box">
-                <text_span class="dot red big"></text_span>
+                <text_span class="dot red"></text_span>
                 <text_span> Support </text_span>
               </div>
               <div class = "col box">
-                <text_span class="dot blue big"></text_span>
+                <text_span class="dot blue"></text_span>
                 <text_span>Friendship</text_span>
               </div>
               <div class = "col box">
-                <text_span class="dot gray big"></text_span>
+                <text_span class="dot gray"></text_span>
                 <text_span> Health </text_span>
               </div>
             </div>
@@ -144,25 +139,25 @@
               <ul class="weekdays">
                 <div class="row align-items-center row-eq-height">
                   <div class = "col">
-                    <li> Su </li>
+                    <div> Su </div>
                   </div>
                   <div class = "col">
-                    <li> M </li>
+                    <div> M </div>
                   </div>
                   <div class = "col">
-                    <li> Tu </li>
+                    <div> Tu </div>
                   </div>
                   <div class = "col">
-                    <li> W </li>
+                    <div> W </div>
                   </div>
                   <div class = "col">
-                    <li> Th </li>
+                    <div> Th </div>
                   </div>
                   <div class = "col">
-                    <li> F </li>
+                    <div> F </div>
                   </div>
                   <div class = "col">
-                    <li> Sa </li>
+                    <div> Sa </div>
                   </div>
                 </div>
               </ul>
@@ -284,6 +279,7 @@
         <!-- JS for Bootstrap -->
         <script>
           
+          var title_setter = document.getElementById('month_year_display');
           var modal_link = document.getElementById('modal_link');
           var modal_location = document.getElementById('modal_location');
           var modal_title = document.getElementById('modal_title');
@@ -410,16 +406,22 @@
               var today = new Date();
               if(today.getDate() == population_container_id_splitter[0] && today.getMonth()+1 == population_container_id_splitter[1]){
                 // if the day and month from the container's ID match todays date (get month is on a scale from 0-11)
-                container_selector[j].setAttribute("class", "container today")
+                container_selector[j].setAttribute("class", "container today");
                 // set the class to be today
               }
 
               if(population_container_id_splitter[2] == 3 && checked == 0){
                 // this checks the month number from a week in the middle of the month and if that number has been checked yet
-                var current_month = population_container_id_splitter[1]
+                var current_month = population_container_id_splitter[1];
                 // set the current month to that month
                 checked=1;
                 // this has now been checked, so it doesn't need to be done again for each day in third week
+
+                var current_year = title_setter.innerHTML;
+                var current_month_for_date = current_month -1;
+                var maybe_date = new Date(current_year, current_month_for_date);
+                title_setter.innerHTML= maybe_date.toDateString().split(" ")[1] + "/" + current_year;
+
                 for(let k= 0; k < container_selector.length; k++){
                   // for each container
                   var other_month_container_id_splitter = container_selector[k].id.split("_");
