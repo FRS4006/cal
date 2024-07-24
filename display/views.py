@@ -118,21 +118,6 @@ def home(request, input_selected_month, input_selected_year):
         # these commented out pieces would be to add the logic for displaying from the past months and next months events as well
 
 
-
-
-
-
-            for number in all_days:
-                # check all of the days, if the day attribute is equal to the day of an event and the month of the event
-                if event.date_of_event.day == number['day'] and event.date_of_event.month == number['month']:
-                    number['event'] = event.event_type
-                    # set the event of the day to be equal to the event_type
-
-
-
-
-
-
     json_display_events = json.dumps(display_events)
 
 

@@ -67,6 +67,10 @@
       }
       .container{
         border-style: solid;
+        border-color: gray;
+      }
+      .today{
+        border-color: black;
       }
       .col{
         min-width: 0;
@@ -353,14 +357,20 @@
 
           function populator(){
             var container_selector = document.querySelectorAll(".container");
+            // find the containers that will hold the information about the days
             for(let j= 0; j < container_selector.length; j++ ){
               var population_container_id_splitter = container_selector[j].id.split("_");
+              // for each container that is found split their ids into the information stored day_month_week#
               for(let d = 0; d < display.length; d++){
                 if(display[d].day == population_container_id_splitter[0] && display[d].month == population_container_id_splitter[1]){
+                  // for each item in the events to display if the day and month are equal to the split ID check what type of event they are
                     if(display[d].type == 'Health'){
                       var hgs = gray_span.cloneNode(true)
+                      // creates a clone of the grey node span
                       hgs.setAttribute("id", display[d].day + "_" +display[d].month + "_" + display[d].title);
+                      // sets the id to day_month_title which can be used to find the event later
                       container_selector[j].appendChild(hgs);
+                      // append the event span to the container
                     }
                     else if(display[d].type == 'Support'){
                       var sgs = red_span.cloneNode(true)
@@ -374,16 +384,22 @@
                     }
                 }
               }
+              var today = new Date();
+              if(today.getDate() == population_container_id_splitter[0] && today.getMonth()+1 == population_container_id_splitter[1]){
+                // if the day and month from the container's ID match todays date (get month is on a scale from 0-11)
+                console.log(container_selector[j])
+                container_selector[j].setAttribute("class", "container today")
+              }
             }
 
             var span_selector = document.querySelectorAll("span");
             for(let i = 0; i < span_selector.length; i++){
-              // for each list item stored
+              // for each span stored
               if(span_selector[i].id != ""){
                 // if it has an id, give it an event listener for when it is clicked
                 span_selector[i].addEventListener("click", function(){
                   isElementClicked(span_selector[i].id);
-                  // pass the id of that clicked li to isElementClicked
+                  // pass the id of that clicked span to isElementClicked
                 }); 
               }
             }
