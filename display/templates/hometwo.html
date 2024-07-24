@@ -52,6 +52,8 @@
         border-radius: 50%;
         display: inline-block;
       }
+      /* this creates the shape of the event circles */
+
       .red{
         background-color: #d37676;
       }
@@ -61,24 +63,36 @@
       .blue{
         background-color: #4382e0;
       }
+      /* these are for coloring the nodes that represent the events */
+
       .big{
         height: 20vh;
         width: 20vh;
       }
+      /* I will probably be removing this since in the diagram the icons are all the same size */
+      
       .container{
         border-style: solid;
         border-color: gray;
         border-width: 1vh;
       }
+      /* for the outlines of the containers holding the spans */
+
       .today{
         border-color: black;
       }
+      /* the highlight for today */
+
       .other_month{
         border-color: red;
       }
+      /* to show the difference between the current month and next month */
+
       .col{
         min-width: 0;
       }
+      /* they will flex if you do not set this */
+
     </style>
   </head>
   <body>
@@ -362,6 +376,8 @@
           }
 
           checked = 0;
+          // to stop a loop later
+
           function populator(){
             var container_selector = document.querySelectorAll(".container");
             // find the containers that will hold the information about the days
@@ -399,12 +415,19 @@
               }
 
               if(population_container_id_splitter[2] == 3 && checked == 0){
+                // this checks the month number from a week in the middle of the month and if that number has been checked yet
                 var current_month = population_container_id_splitter[1]
+                // set the current month to that month
                 checked=1;
+                // this has now been checked, so it doesn't need to be done again for each day in third week
                 for(let k= 0; k < container_selector.length; k++){
+                  // for each container
                   var other_month_container_id_splitter = container_selector[k].id.split("_");
+                  // split the id's again
                   if(other_month_container_id_splitter[1] != current_month && container_selector[k].id != ""){
+                    // if the month doesnt equal the current month and if it has an ID (the decorative elements dont have IDs at the moment, so this filters those out)
                     container_selector[k].setAttribute("class", "container other_month")
+                    // set the class to the other month class
                   }
                 }
               }
