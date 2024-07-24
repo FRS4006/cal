@@ -418,9 +418,13 @@
                 // this has now been checked, so it doesn't need to be done again for each day in third week
 
                 var current_year = title_setter.innerHTML;
+                // takes the year that is saved there
                 var current_month_for_date = current_month -1;
+                // sets the current month in the 0-11 scale that dateTime uses
                 var maybe_date = new Date(current_year, current_month_for_date);
+                // create a fake dateTime object in that month
                 title_setter.innerHTML= maybe_date.toDateString().split(" ")[1] + "/" + current_year;
+                // set the inner html of the title to be the month as a string and year of the date time
 
                 for(let k= 0; k < container_selector.length; k++){
                   // for each container
