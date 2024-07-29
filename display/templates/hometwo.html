@@ -14,6 +14,7 @@
     <style>
       body{
         min-width:500px;
+        min-height:700px;
         width: auto;
         /* The spacing starts looking odd below the min width value and the width sets to auto so that the element can resize with the screen */
       }
@@ -48,21 +49,25 @@
       /* these are for coloring the nodes that represent the events */
       
       .container{
+        /* this also pulls from the bootstrap library for some additional effects */
         border-style: solid;
-        border-color: gray;
-        border-width: 1vw;
+        border-color: rgb(146, 145, 145);
+        border-width: .5vw;
+        border-radius: 5%;
         height: 20vh;
-        width: 12.5vw;
+        width: 100%;
+        padding: 0;
       }
       /* for the outlines of the containers holding the spans */
 
       .today{
         border-color: black;
+        border-width: .8vw;
       }
       /* the highlight for today */
 
       .other_month{
-        border-color: red;
+        border-color: rgb(233, 229, 229);
       }
       /* to show the difference between the current month and next month */
 
@@ -70,382 +75,382 @@
         min-width: 0;
         text-align: center;
         vertical-align: middle;
-      }
       /* they will flex if you do not set this */
+
+          padding-left: 1vh;
+          padding-right: 1vh;
+        /* to make the side of the nice outlined squares */
+      }
+      .row{
+        margin-left: 0;
+        margin-right: 0;
+        /* to remove the margin bootstrap gives the rows */
+
+        padding-top: 1vh;
+        /*  to add an equal padding to the squares on the top */
+      }
 
     </style>
   </head>
   <body>
-          <div class="calendar">
-            <div class ="text-center">
-              <div class="row">
-                <div class="col">
-                  <form method="post" action="{% url 'previous' previous_month=previous_month selected_year=selected_year %}">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" name="previous"><i class="bi bi-arrow-left"></i></button>
-                  </form>
-                  <!-- this form sends you to the previous month -->
-                </div>
-                <div class="col">
-                  <!-- <h1 id="month_year_display">{{selected_month}} / {{selected_year}}</h1> -->
-                  <h1 id="month_year_display">{{selected_year}}</h1>
-                </div>
-                <!-- I would like to change this so that the selected month displays as a string -->
-                <div class="col">
-                  <form method="post" action="{% url 'next' next_month=next_month selected_year=selected_year %}">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" name="next" > <i class="bi bi-arrow-right"></i></button>
-                    <!-- this form sends you to the next month -->
-                  </form>
-                </div>
-              </div>
-            </div>
+    <div class  ="calendar-holder">
+      <div class="row">
+        <!-- Row that holds the columns for the month selector -->
 
-            <div class = "row">
-              <div class = "col">
-                <div class = "container today">Today</div>
-              </div>
-              <div class = "col">
-                <text_span class="dot red"></text_span>
-                <text_span> Support </text_span>
-              </div>
-              <div class = "col">
-                <text_span class="dot blue"></text_span>
-                <text_span>Friendship</text_span>
-              </div>
-              <div class = "col">
-                <text_span class="dot gray"></text_span>
-                <text_span> Health </text_span>
-              </div>
-            </div>
-            <!-- add Today example when ready -->
+        <div class="col">
+          <!-- column for the previous button -->
+          <form method="post" action="{% url 'previous' previous_month=previous_month selected_year=selected_year %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" name="previous"><i class="bi bi-arrow-left"></i></button>
+          </form>
+          <!-- this form sends you to the previous month -->
+        </div>
 
-              <ul class="weekdays">
-                <div class="row align-items-center row-eq-height">
-                  <div class = "col">
-                    <div> Su </div>
-                  </div>
-                  <div class = "col">
-                    <div> M </div>
-                  </div>
-                  <div class = "col">
-                    <div> Tu </div>
-                  </div>
-                  <div class = "col">
-                    <div> W </div>
-                  </div>
-                  <div class = "col">
-                    <div> Th </div>
-                  </div>
-                  <div class = "col">
-                    <div> F </div>
-                  </div>
-                  <div class = "col">
-                    <div> Sa </div>
-                  </div>
-                </div>
-              </ul>
-              <!-- I would like to make these line items look more appealing -->
+        <div class="col">
+          <!-- column for the month information at the top -->
+          <h1 id="month_year_display">{{selected_year}}</h1>
+        </div>
 
-              <div class = "row">
-                {% for day in first_week %}
-                  <div class = "col">
-                    <div id={{day.day}}_{{day.month}}_1 class = "container">
-                      <text_span>{{day.day}}</text_span>
-                    </div>
-                  </div>
-                {% endfor %}
-              </div>
+        <div class="col">
+          <!-- column for the next button -->
+          <form method="post" action="{% url 'next' next_month=next_month selected_year=selected_year %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" name="next" > <i class="bi bi-arrow-right"></i></button>
+            <!-- this form sends you to the next month -->
+          </form>
+        </div>
+      </div>
 
-              <div class = "row">
-                {% for day in second_week %}
-                  <div class = "col">
-                    <div id={{day.day}}_{{day.month}}_2 class = "container">
-                      <text_span>{{day.day}}</text_span>
-                    </div>
-                  </div>
-                {% endfor %}
-              </div>
 
-              <div class = "row">
-                {% for day in third_week %}
-                  <div class = "col">
-                    <div id={{day.day}}_{{day.month}}_3 class = "container">
-                      <text_span>{{day.day}}</text_span>
-                    </div>
-                  </div>
-                {% endfor %}
-              </div>
+      <div class = "row">
+      <!-- The row that contains the example objects (The black today box and the example circle's) -->
+      
+        <div class = "col">
+          <div class = "container today">Today</div>
+        </div>
 
-              <div class = "row">
-                {% for day in fourth_week %}
-                  <div class = "col">
-                    <div id={{day.day}}_{{day.month}}_4 class = "container">
-                      <text_span>{{day.day}}</text_span>
-                    </div>
-                  </div>
-                {% endfor %}
-              </div>
+        <div class = "col">
+          <span class="dot red"></span>
+          <text_span> Support </text_span>
+        </div>
 
-              <div class = "row">
-                {% for day in fifth_week %}
-                    <div class = "col">
-                      <div id={{day.day}}_{{day.month}}_5 class = "container">
-                        <text_span>{{day.day}}</text_span>
-                      </div>
-                    </div>
-                {% endfor %}
-              </div>
-              <div class = "row">
-                {% for day in sixth_week %}
-                  <div class = "col">
-                    <div id={{day.day}}_{{day.month}}_6 class = "container">
-                      <text_span>{{day.day}}</text_span>
-                    </div>
-                  </div>
-                {% endfor %}
-                </div>
+        <div class = "col">
+          <span class="dot blue"></span>
+          <text_span>Friendship</text_span>
+        </div>
+
+        <div class = "col">
+          <span class="dot gray"></span>
+          <text_span> Health </text_span>
+        </div>
+
+      </div>
+
+
+      <ul class="weekdays">
+        <div class="row align-items-center row-eq-height">
+          <div class = "col">
+            <div> Su </div>
           </div>
-
-
-              <!-- <div class = "row">
-                {% for day in sixth_week %}
-                  {% if day.event == "Support" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-primary"> {{day.day}}</li>
-                    </div>
-                  {% elif day.event == "Friendship" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-danger"> {{day.day}} </li>
-                    </div>
-                  {% elif day.event == "Health" %}
-                    <div class = "col">
-                      <li data-bs-toggle="modal" data-bs-target="#exampleModal" id={{day.day}}_{{day.month}} class= "list-group-item list-group-item-secondary"> 
-                        {{day.day}}
-                      </li>
-                    </div>
-                  {% else %}
-                    <div class = "col">
-                      <li id={{day.day}}_{{day.month}} class= "list-group-item"> {{day.day}}</li>
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              </div> -->
-
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h3 class="modal-title" id="modal_title"></h3>
-              </div>
-              <div class="modal-body">
-                <ul>
-                  <div id="modal_date"> <i class="bi bi-calendar"></i> </div>
-                  <div id="modal_time"> <i class="bi bi-clock"></i> </div>
-                  <div id="modal_location"> <i class="bi bi-geo-alt"></i> </div>
-                </ul>
-                <div id="modal_desc"></div>
-                <br>
-                <div class = "black-box">
-                  <a id="modal_link" href="#" target="_blank"></a>
-                </div>
-              </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-            </div>
+          <div class = "col">
+            <div> M </div>
+          </div>
+          <div class = "col">
+            <div> Tu </div>
+          </div>
+          <div class = "col">
+            <div> W </div>
+          </div>
+          <div class = "col">
+            <div> Th </div>
+          </div>
+          <div class = "col">
+            <div> F </div>
+          </div>
+          <div class = "col">
+            <div> Sa </div>
           </div>
         </div>
-        <!-- this modal is initially generated as blank outside of the structure, but when it is created, all of its necessary pieces are appended -->
+      </ul>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <!-- JS for Bootstrap -->
-        <script>
+      <div class = "row">
+        {% for day in first_week %}
+          <div class = "col">
+            <div id={{day.day}}_{{day.month}}_1 class = "container">
+              <text_span>{{day.day}}</text_span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class = "row">
+        {% for day in second_week %}
+          <div class = "col">
+            <div id={{day.day}}_{{day.month}}_2 class = "container">
+              <text_span>{{day.day}}</text_span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class = "row">
+        {% for day in third_week %}
+          <div class = "col">
+            <div id={{day.day}}_{{day.month}}_3 class = "container">
+              <text_span>{{day.day}}</text_span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class = "row">
+        {% for day in fourth_week %}
+          <div class = "col">
+            <div id={{day.day}}_{{day.month}}_4 class = "container">
+              <text_span>{{day.day}}</text_span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class = "row">
+        {% for day in fifth_week %}
+            <div class = "col">
+              <div id={{day.day}}_{{day.month}}_5 class = "container">
+                <text_span>{{day.day}}</text_span>
+              </div>
+            </div>
+        {% endfor %}
+      </div>
+
+      <div class = "row">
+        {% for day in sixth_week %}
+          <div class = "col">
+            <div id={{day.day}}_{{day.month}}_6 class = "container">
+              <text_span>{{day.day}}</text_span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h3 class="modal-title" id="modal_title"></h3>
+          </div>
+
+          <div class="modal-body">
+
+            <div id="modal_date"> <i class="bi bi-calendar"></i> </div>
+            <div id="modal_time"> <i class="bi bi-clock"></i> </div>
+            <div id="modal_location"> <i class="bi bi-geo-alt"></i> </div>
+            
+            <br>
+            <div id="modal_desc"></div>
+            <br>
+
+            <div class = "black-box">
+              <a id="modal_link" href="#" target="_blank"></a>
+            </div>
+
+          </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
           
-          var title_setter = document.getElementById('month_year_display');
-          // for setting the title to the corect month string and year integer
+        </div>
+      </div>
+    </div>
+    <!-- this modal is initially generated as blank outside of the structure, but when it is created, all of its necessary pieces are appended -->
 
-          var modal_link = document.getElementById('modal_link');
-          var modal_location = document.getElementById('modal_location');
-          var modal_title = document.getElementById('modal_title');
-          var modal_date = document.getElementById('modal_date');
-          var modal_desc = document.getElementById('modal_desc');
-          var modal_link = document.getElementById('modal_link');
-          // these variables all refer to specific ID's in the modal that will be used to change information later
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- JS for Bootstrap -->
+    <script>
+      var title_setter = document.getElementById('month_year_display');
+      // for setting the title to the corect month string and year integer
 
-          var gray_span = document.createElement("SPAN");
-          gray_span.setAttribute("class", "dot gray");
-          gray_span.setAttribute("data-bs-toggle", "modal" );
-          gray_span.setAttribute("data-bs-target", "#exampleModal");
+      var modal_link = document.getElementById('modal_link');
+      var modal_location = document.getElementById('modal_location');
+      var modal_title = document.getElementById('modal_title');
+      var modal_date = document.getElementById('modal_date');
+      var modal_desc = document.getElementById('modal_desc');
+      var modal_link = document.getElementById('modal_link');
+      // these variables all refer to specific ID's in the modal that will be used to change information later
 
-          var red_span = document.createElement("SPAN");
-          red_span.setAttribute("class", "dot red");
-          red_span.setAttribute("data-bs-toggle", "modal" );
-          red_span.setAttribute("data-bs-target", "#exampleModal");
-          
-          var blue_span = document.createElement("SPAN");
-          blue_span.setAttribute("class", "dot blue");
-          blue_span.setAttribute("data-bs-toggle", "modal" );
-          blue_span.setAttribute("data-bs-target", "#exampleModal");
+      var gray_span = document.createElement("SPAN");
+      gray_span.setAttribute("class", "dot gray");
+      gray_span.setAttribute("data-bs-toggle", "modal" );
+      gray_span.setAttribute("data-bs-target", "#exampleModal");
+
+      var red_span = document.createElement("SPAN");
+      red_span.setAttribute("class", "dot red");
+      red_span.setAttribute("data-bs-toggle", "modal" );
+      red_span.setAttribute("data-bs-target", "#exampleModal");
+      
+      var blue_span = document.createElement("SPAN");
+      blue_span.setAttribute("class", "dot blue");
+      blue_span.setAttribute("data-bs-toggle", "modal" );
+      blue_span.setAttribute("data-bs-target", "#exampleModal");
 
 
-          var display = {{json_display_events|safe}};
-          // this is necessary to seperate the array from views.py into pieces of information that can be read by the script
+      var display = {{json_display_events|safe}};
+      // this is necessary to seperate the array from views.py into pieces of information that can be read by the script
 
-          function isElementClicked(id){
-            var id_splitter = id.split("_")
-            // the ID's are constructed of day_month, so this seperates those numbers
-            // console.log(id_splitter[0], id_splitter[1])
+      function isElementClicked(id){
+        var id_splitter = id.split("_")
+        // the ID's are constructed of day_month, so this seperates those numbers
+        // console.log(id_splitter[0], id_splitter[1])
 
-            for(let i = 0; i < display.length; i++){
-              // this for loop checks each item in the list of displayable items
-              if(display[i].day == id_splitter[0] && display[i].month == id_splitter[1] && display[i].title == id_splitter[2]){
-                // if the day and month from the event are equal to the day and month stored in the unique ID
-                console.log(display[i]);
+        for(let i = 0; i < display.length; i++){
+          // this for loop checks each item in the list of displayable items
+          if(display[i].day == id_splitter[0] && display[i].month == id_splitter[1] && display[i].title == id_splitter[2]){
+            // if the day and month from the event are equal to the day and month stored in the unique ID
+            console.log(display[i]);
 
-                var title = display[i].title;
-                // take the event's title and store it
-                var title_text = document.createTextNode(title);
-                // make a text node with the stored title
-                modal_title.innerHTML = '';
-                // reset the location in the modal that this information will be going to
-                modal_title.appendChild(title_text);
-                // add the text to the element
+            var title = display[i].title;
+            // take the event's title and store it
+            var title_text = document.createTextNode(title);
+            // make a text node with the stored title
+            modal_title.innerHTML = '';
+            // reset the location in the modal that this information will be going to
+            modal_title.appendChild(title_text);
+            // add the text to the element
 
-                var date = display[i].display_date;
-                var date_text = document.createTextNode(date);
-                modal_date.innerHTML = '<i class="bi bi-calendar"></i> ';
-                modal_date.appendChild(date_text);
+            var date = display[i].display_date;
+            var date_text = document.createTextNode(date);
+            modal_date.innerHTML = '<i class="bi bi-calendar"></i> ';
+            modal_date.appendChild(date_text);
 
-                var time = display[i].display_hour;
-                var time_text = document.createTextNode(time);
-                modal_time.innerHTML = '<i class="bi bi-clock"></i> ';
-                modal_time.appendChild(time_text);
+            var time = display[i].display_hour;
+            var time_text = document.createTextNode(time);
+            modal_time.innerHTML = '<i class="bi bi-clock"></i> ';
+            modal_time.appendChild(time_text);
 
-                var location = display[i].location;
-                var location_text = document.createTextNode(location);
-                modal_location.innerHTML = '<i class="bi bi-geo-alt"></i> ';
-                modal_location.appendChild(location_text);
+            var location = display[i].location;
+            var location_text = document.createTextNode(location);
+            modal_location.innerHTML = '<i class="bi bi-geo-alt"></i> ';
+            modal_location.appendChild(location_text);
 
-                if(display[i].description != null){
-                  // this is essentially the same as the others, except that if there is no description, it should be empty
-                  var desc = display[i].description;
-                  var desc_text = document.createTextNode(desc);
-                  modal_desc.innerHTML = '';
-                  modal_desc.appendChild(desc_text);
+            if(display[i].description != null){
+              // this is essentially the same as the others, except that if there is no description, it should be empty
+              var desc = display[i].description;
+              var desc_text = document.createTextNode(desc);
+              modal_desc.innerHTML = '';
+              modal_desc.appendChild(desc_text);
+            }
+            else{
+              modal_desc.innerHTML = '';
+            }
+
+            if(display[i].link != ""){
+              // this is essentially the same as the others, except that if there is no link, it should be empty
+              var link = display[i].link;
+              // var link_text = document.createTextNode(link);
+              var link_text = document.createTextNode("Join Meeting");
+              // here I set the text to be "Join Meeting", but you could set it to the zoom link as well
+              modal_link.innerHTML = '';
+              modal_link.href = link;
+              modal_link.appendChild(link_text);
+            }
+            else{
+              modal_link.innerHTML = '';
+            }
+
+          }
+        }
+      }
+
+      checked = 0;
+      // to stop a loop later
+
+      function populator(){
+        var container_selector = document.querySelectorAll(".container");
+        var br_er = document.createElement("br")
+        // find the containers that will hold the information about the days
+        for(let j= 0; j < container_selector.length; j++ ){
+          var population_container_id_splitter = container_selector[j].id.split("_");
+          // for each container that is found split their ids into the information stored day_month_week#
+          for(let d = 0; d < display.length; d++){
+            if(display[d].day == population_container_id_splitter[0] && display[d].month == population_container_id_splitter[1]){
+              // for each item in the events to display if the day and month are equal to the split ID check what type of event they are
+                if(display[d].type == 'Health'){
+                  var hgs = gray_span.cloneNode(true)
+                  // creates a clone of the grey node span
+                  hgs.setAttribute("id", display[d].day + "_" +display[d].month + "_" + display[d].title);
+                  // sets the id to day_month_title which can be used to find the event later
+                  container_selector[j].appendChild(hgs);
+                  container_selector[j].appendChild(br_er);
+                  // append the event span to the container
+                }
+                else if(display[d].type == 'Support'){
+                  var sgs = red_span.cloneNode(true)
+                  sgs.setAttribute("id", display[d].day + "_" +display[d].month + "_" + display[d].title);
+                  container_selector[j].appendChild(sgs);
+                  container_selector[j].appendChild(br_er);
                 }
                 else{
-                  modal_desc.innerHTML = '';
+                  var fgs = blue_span.cloneNode(true)
+                  fgs.setAttribute("id", display[d].day + "_" +display[d].month + "_" + display[d].title);
+                  container_selector[j].appendChild(fgs);
+                  container_selector[j].appendChild(br_er);
                 }
+            }
+          }
+          var today = new Date();
+          if(today.getDate() == population_container_id_splitter[0] && today.getMonth()+1 == population_container_id_splitter[1]){
+            // if the day and month from the container's ID match todays date (get month is on a scale from 0-11)
+            container_selector[j].setAttribute("class", "container today");
+            // set the class to be today
+          }
 
-                if(display[i].link != ""){
-                  // this is essentially the same as the others, except that if there is no link, it should be empty
-                  var link = display[i].link;
-                  // var link_text = document.createTextNode(link);
-                  var link_text = document.createTextNode("Join Meeting");
-                  // here I set the text to be "Join Meeting", but you could set it to the zoom link as well
-                  modal_link.innerHTML = '';
-                  modal_link.href = link;
-                  modal_link.appendChild(link_text);
-                }
-                else{
-                  modal_link.innerHTML = '';
-                }
+          if(population_container_id_splitter[2] == 3 && checked == 0){
+            // this checks the month number from a week in the middle of the month and if that number has been checked yet
+            var current_month = population_container_id_splitter[1];
+            // set the current month to that month
+            checked=1;
+            // this has now been checked, so it doesn't need to be done again for each day in third week
 
+            var current_year = title_setter.innerHTML;
+            // takes the year that is saved there
+            var current_month_for_date = current_month -1;
+            // sets the current month in the 0-11 scale that dateTime uses
+            var maybe_date = new Date(current_year, current_month_for_date);
+            // create a fake dateTime object in that month
+            title_setter.innerHTML= maybe_date.toDateString().split(" ")[1] + "/" + current_year;
+            // set the inner html of the title to be the month as a string and year of the date time
+
+            for(let k= 0; k < container_selector.length; k++){
+              // for each container
+              var other_month_container_id_splitter = container_selector[k].id.split("_");
+              // split the id's again
+              if(other_month_container_id_splitter[1] != current_month && container_selector[k].id != ""){
+                // if the month doesnt equal the current month and if it has an ID (the decorative elements dont have IDs at the moment, so this filters those out)
+                container_selector[k].setAttribute("class", "container other_month")
+                // set the class to the other month class
               }
             }
           }
+        }
 
-          checked = 0;
-          // to stop a loop later
-
-          function populator(){
-            var container_selector = document.querySelectorAll(".container");
-            var br_er = document.createElement("br")
-            // find the containers that will hold the information about the days
-            for(let j= 0; j < container_selector.length; j++ ){
-              var population_container_id_splitter = container_selector[j].id.split("_");
-              // for each container that is found split their ids into the information stored day_month_week#
-              for(let d = 0; d < display.length; d++){
-                if(display[d].day == population_container_id_splitter[0] && display[d].month == population_container_id_splitter[1]){
-                  // for each item in the events to display if the day and month are equal to the split ID check what type of event they are
-                    if(display[d].type == 'Health'){
-                      var hgs = gray_span.cloneNode(true)
-                      // creates a clone of the grey node span
-                      hgs.setAttribute("id", display[d].day + "_" +display[d].month + "_" + display[d].title);
-                      // sets the id to day_month_title which can be used to find the event later
-                      container_selector[j].appendChild(hgs);
-                      container_selector[j].appendChild(br_er);
-                      // append the event span to the container
-                    }
-                    else if(display[d].type == 'Support'){
-                      var sgs = red_span.cloneNode(true)
-                      sgs.setAttribute("id", display[d].day + "_" +display[d].month + "_" + display[d].title);
-                      container_selector[j].appendChild(sgs);
-                      container_selector[j].appendChild(br_er);
-                    }
-                    else{
-                      var fgs = blue_span.cloneNode(true)
-                      fgs.setAttribute("id", display[d].day + "_" +display[d].month + "_" + display[d].title);
-                      container_selector[j].appendChild(fgs);
-                      container_selector[j].appendChild(br_er);
-                    }
-                }
-              }
-              var today = new Date();
-              if(today.getDate() == population_container_id_splitter[0] && today.getMonth()+1 == population_container_id_splitter[1]){
-                // if the day and month from the container's ID match todays date (get month is on a scale from 0-11)
-                container_selector[j].setAttribute("class", "container today");
-                // set the class to be today
-              }
-
-              if(population_container_id_splitter[2] == 3 && checked == 0){
-                // this checks the month number from a week in the middle of the month and if that number has been checked yet
-                var current_month = population_container_id_splitter[1];
-                // set the current month to that month
-                checked=1;
-                // this has now been checked, so it doesn't need to be done again for each day in third week
-
-                var current_year = title_setter.innerHTML;
-                // takes the year that is saved there
-                var current_month_for_date = current_month -1;
-                // sets the current month in the 0-11 scale that dateTime uses
-                var maybe_date = new Date(current_year, current_month_for_date);
-                // create a fake dateTime object in that month
-                title_setter.innerHTML= maybe_date.toDateString().split(" ")[1] + "/" + current_year;
-                // set the inner html of the title to be the month as a string and year of the date time
-
-                for(let k= 0; k < container_selector.length; k++){
-                  // for each container
-                  var other_month_container_id_splitter = container_selector[k].id.split("_");
-                  // split the id's again
-                  if(other_month_container_id_splitter[1] != current_month && container_selector[k].id != ""){
-                    // if the month doesnt equal the current month and if it has an ID (the decorative elements dont have IDs at the moment, so this filters those out)
-                    container_selector[k].setAttribute("class", "container other_month")
-                    // set the class to the other month class
-                  }
-                }
-              }
-
-
-            }
-
-            var span_selector = document.querySelectorAll("span");
-            for(let i = 0; i < span_selector.length; i++){
-              // for each span stored
-              if(span_selector[i].id != ""){
-                // if it has an id, give it an event listener for when it is clicked
-                span_selector[i].addEventListener("click", function(){
-                  isElementClicked(span_selector[i].id);
-                  // pass the id of that clicked span to isElementClicked
-                }); 
-              }
-            }
+        var span_selector = document.querySelectorAll("span");
+        for(let i = 0; i < span_selector.length; i++){
+          // for each span stored
+          if(span_selector[i].id != ""){
+            // if it has an id, give it an event listener for when it is clicked
+            span_selector[i].addEventListener("click", function(){
+              isElementClicked(span_selector[i].id);
+              // pass the id of that clicked span to isElementClicked
+            }); 
           }
-          populator();
-        </script>
-      </body>
+        }
+      }
+      populator();
+    </script>
+  </body>
 </html>
