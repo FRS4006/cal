@@ -12,83 +12,171 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Bootstrap Icons -->
     <style>
-      body{
-        min-width:500px;
-        min-height:700px;
-        width: auto;
-        /* The spacing starts looking odd below the min width value and the width sets to auto so that the element can resize with the screen */
-      }
-      .black-box{
-        background-color: black;
-        text-align: center;
-        /* min-height: 5vh; */
-        /* This is for the black box that is created around the url, I would like to change the size but I am currently encountering an issue where it is displayed with no link if I set a min size */
-      }
+      @media screen and (min-width: 1200px) {
+        body{
+          /* width: auto; */
+          max-width: 1200;
+          /* The spacing starts looking odd below the min width value and the width sets to auto so that the element can resize with the screen */
+        }
+        .black-box{
+          background-color: black;
+          text-align: center;
+          min-height: 5vh;
+          /* This is for the black box that is created around the url, I would like to change the size but I am currently encountering an issue where it is displayed with no link if I set a min size */
+        }
 
-      a{
-        color: white;
-        /* Setting the color of the link inside of the box to be white */
-      }
-      .dot {
-        height: 2.5vh;
-        width: 2.5vh;
-        border-radius: 50%;
-        display: inline-block;
-      }
-      /* this creates the shape of the event circles */
+        a{
+          color: white;
+          /* Setting the color of the link inside of the box to be white */
+        }
+        .dot {
+          height: 30px;
+          width: 30px;
+          border-radius: 50%;
+          display: inline-block;
+        }
+        /* this creates the shape of the event circles */
 
-      .red{
-        background-color: #d37676;
-      }
-      .gray{
-        background-color: #8b8989;
-      }
-      .blue{
-        background-color: #4382e0;
-      }
-      /* these are for coloring the nodes that represent the events */
-      
-      .container{
-        /* this also pulls from the bootstrap library for some additional effects */
-        border-style: solid;
-        border-color: rgb(146, 145, 145);
-        border-width: .5vw;
-        border-radius: 5%;
-        height: 20vh;
-        width: 100%;
-        padding: 0;
-      }
-      /* for the outlines of the containers holding the spans */
+        .red{
+          background-color: #d37676;
+        }
+        .gray{
+          background-color: #8b8989;
+        }
+        .blue{
+          background-color: #4382e0;
+        }
+        /* these are for coloring the nodes that represent the events */
+        
+        .container{
+          /* this also pulls from the bootstrap library for some additional effects */
+          border-style: solid;
+          border-color: rgb(146, 145, 145);
+          border-width: .5vw;
+          border-radius: 5%;
+          /* height: 14vw;
+          width: 100%; */
+          height: 150px;
+          width: 150px;
+          padding-top: 1.2px;
+          padding-left: 1.2px;
+          text-align: left;
+        }
+        /* for the outlines of the containers holding the spans */
 
-      .today{
-        border-color: black;
-        border-width: .8vw;
+        .today{
+          border-color: black;
+          border-width: .8vw;
+        }
+        /* the highlight for today */
+
+        .other_month{
+          border-color: rgb(233, 229, 229);
+        }
+        /* to show the difference between the current month and next month */
+
+        .col{
+          min-width: 0;
+          text-align: center;
+          vertical-align: middle;
+        /* they will flex if you do not set this */
+
+          padding-left: 10px;
+          padding-right: 10px;
+          /* to make the side of the nice outlined squares */
+        }
+        .row{
+          margin-left: 0;
+          margin-right: 0;
+          /* to remove the margin bootstrap gives the rows */
+
+          padding-top: 1vh;
+          /*  to add an equal padding to the squares on the top */
+        }
       }
-      /* the highlight for today */
+      @media screen and (min-width: 768px) and (max-width: 1199.9px) {
+        body{
+          width: auto;
+          /* The spacing starts looking odd below the min width value and the width sets to auto so that the element can resize with the screen */
+        }
+        .black-box{
+          background-color: black;
+          text-align: center;
+          min-height: 5vh;
+          /* This is for the black box that is created around the url, I would like to change the size but I am currently encountering an issue where it is displayed with no link if I set a min size */
+        }
 
-      .other_month{
-        border-color: rgb(233, 229, 229);
-      }
-      /* to show the difference between the current month and next month */
+        a{
+          color: white;
+          /* Setting the color of the link inside of the box to be white */
+        }
+        .dot {
+          height: 2.5vh;
+          width: 2.5vh;
+          border-radius: 50%;
+          display: inline-block;
+        }
+        /* this creates the shape of the event circles */
 
-      .col{
-        min-width: 0;
-        text-align: center;
-        vertical-align: middle;
-      /* they will flex if you do not set this */
-
+        .red{
+          background-color: #df1cb5;
+        }
+        .gray{
+          background-color: #8b8989;
+        }
+        .blue{
+          background-color: #4382e0;
+        }
+        /* these are for coloring the nodes that represent the events */
+        
+        .container{
+          /* this also pulls from the bootstrap library for some additional effects */
+          border-style: solid;
+          border-color: rgb(146, 145, 145);
+          border-width: .5vw;
+          border-radius: 5%;
+          height: 14vh;
+          width: 14vh;
+          padding-top: 1vh;
           padding-left: 1vh;
-          padding-right: 1vh;
-        /* to make the side of the nice outlined squares */
-      }
-      .row{
-        margin-left: 0;
-        margin-right: 0;
-        /* to remove the margin bootstrap gives the rows */
+          text-align: left;
+        }
+        /* for the outlines of the containers holding the spans */
 
-        padding-top: 1vh;
-        /*  to add an equal padding to the squares on the top */
+        .today{
+          border-color: black;
+          border-width: .8vw;
+        }
+        /* the highlight for today */
+
+        .other_month{
+          border-color: rgb(233, 229, 229);
+        }
+        /* to show the difference between the current month and next month */
+
+        .col{
+          min-width: 0;
+          text-align: center;
+          vertical-align: middle;
+        /* they will flex if you do not set this */
+
+            padding-left: 1vh;
+            padding-right: 1vh;
+          /* to make the side of the nice outlined squares */
+        }
+        .row{
+          margin-left: 0;
+          margin-right: 0;
+          /* to remove the margin bootstrap gives the rows */
+
+          padding-top: 1vh;
+          /*  to add an equal padding to the squares on the top */
+        }
       }
+      @media screen and (max-width: 767.9px){
+      }
+
+
 
     </style>
   </head>
@@ -133,16 +221,19 @@
 
         <div class = "col">
           <span class="dot red"></span>
+          <br>
           <text_span> Support </text_span>
         </div>
 
         <div class = "col">
           <span class="dot blue"></span>
+          <br>
           <text_span>Friendship</text_span>
         </div>
 
         <div class = "col">
           <span class="dot gray"></span>
+          <br>
           <text_span> Health </text_span>
         </div>
 
@@ -297,6 +388,7 @@
       blue_span.setAttribute("class", "dot blue");
       blue_span.setAttribute("data-bs-toggle", "modal" );
       blue_span.setAttribute("data-bs-target", "#exampleModal");
+      // These create the event crcles and attatch them to the modal
 
 
       var display = {{json_display_events|safe}};
