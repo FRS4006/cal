@@ -93,6 +93,9 @@
           padding-top: 1vh;
           /*  to add an equal padding to the squares on the top */
         }
+        .week-calendar-holder{
+          display: none;
+        }
       }
       @media screen and (min-width: 768px) and (max-width: 1199.9px) {
         body{
@@ -172,8 +175,24 @@
           padding-top: 1vh;
           /*  to add an equal padding to the squares on the top */
         }
+        .week-calendar-holder{
+          display: none;
+        }
       }
       @media screen and (max-width: 767.9px){
+        .month-calendar-holder{
+          display: none;
+        }
+        .week-calendar-holder{
+          display: block;
+        }
+        
+        .horizontal-scrollable{
+          overflow-x: auto;
+          white-space: nowrap;
+          min-width: 500px;
+          /* display: inline; */
+        }
       }
 
 
@@ -181,7 +200,89 @@
     </style>
   </head>
   <body>
-    <div class  ="calendar-holder">
+    <div class  ="week-calendar-holder">
+      <div class="row">
+        <!-- Row that holds the columns for the month selector -->
+
+        <div class="col">
+          <!-- column for the previous button -->
+          <form method="post" action="{% url 'previous' previous_month=previous_month selected_year=selected_year %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" name="previous"><i class="bi bi-arrow-left"></i></button>
+          </form>
+          <!-- this form sends you to the previous month -->
+        </div>
+
+        <div class="col">
+          <!-- column for the month information at the top -->
+          <h1 id="month_year_display">{{selected_year}}</h1>
+        </div>
+
+        <div class="col">
+          <!-- column for the next button -->
+          <form method="post" action="{% url 'next' next_month=next_month selected_year=selected_year %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" name="next" > <i class="bi bi-arrow-right"></i></button>
+            <!-- this form sends you to the next month -->
+          </form>
+        </div>
+      </div>
+      <div class = "row horizontal-scrollable">
+        <!-- The row that contains the example objects (The black today box and the example circle's) -->
+        
+          <div class = "col">
+            <div class = "container today">Today</div>
+          </div>
+  
+          <div class = "col">
+            <span class="dot red"></span>
+            <br>
+            <text_span> Support </text_span>
+          </div>
+  
+          <div class = "col">
+            <span class="dot blue"></span>
+            <br>
+            <text_span>Friendship</text_span>
+          </div>
+  
+          <div class = "col">
+            <span class="dot gray"></span>
+            <br>
+            <text_span> Health </text_span>
+          </div>
+  
+          <div class="row align-items-center row-eq-height">
+            <div class = "col">
+              <div> Su </div>
+            </div>
+            <div class = "col">
+              <div> M </div>
+            </div>
+            <div class = "col">
+              <div> Tu </div>
+            </div>
+            <div class = "col">
+              <div> W </div>
+            </div>
+            <div class = "col">
+              <div> Th </div>
+            </div>
+            <div class = "col">
+              <div> F </div>
+            </div>
+            <div class = "col">
+              <div> Sa </div>
+            </div>
+          </div>
+          
+        </div>
+    </div>
+
+    
+    <div class  ="month-calendar-holder">
       <div class="row">
         <!-- Row that holds the columns for the month selector -->
 
@@ -240,31 +341,29 @@
       </div>
 
 
-      <ul class="weekdays">
-        <div class="row align-items-center row-eq-height">
-          <div class = "col">
-            <div> Su </div>
-          </div>
-          <div class = "col">
-            <div> M </div>
-          </div>
-          <div class = "col">
-            <div> Tu </div>
-          </div>
-          <div class = "col">
-            <div> W </div>
-          </div>
-          <div class = "col">
-            <div> Th </div>
-          </div>
-          <div class = "col">
-            <div> F </div>
-          </div>
-          <div class = "col">
-            <div> Sa </div>
-          </div>
+      <div class="row align-items-center row-eq-height">
+        <div class = "col">
+          <div> Su </div>
         </div>
-      </ul>
+        <div class = "col">
+          <div> M </div>
+        </div>
+        <div class = "col">
+          <div> Tu </div>
+        </div>
+        <div class = "col">
+          <div> W </div>
+        </div>
+        <div class = "col">
+          <div> Th </div>
+        </div>
+        <div class = "col">
+          <div> F </div>
+        </div>
+        <div class = "col">
+          <div> Sa </div>
+        </div>
+      </div>
 
       <div class = "row">
         {% for day in first_week %}
