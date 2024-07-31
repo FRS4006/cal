@@ -149,8 +149,9 @@ def home(request, input_selected_month, input_selected_year, input_selected_week
             sixth_week.append(enumerator[1])
 
     if(selected_week == 0):
-        previous_week=6
+        previous_week=5
         next_week=1
+        # set the month to the previous month, then if the sixth week's first day is < 10 set the week to week 5 (selected_week =4) else selected week = 5
     elif(selected_week == 1):
         previous_week = 0
         next_week = 2
@@ -165,12 +166,15 @@ def home(request, input_selected_month, input_selected_year, input_selected_week
         next_week = 5
         if(sixth_week[0] and sixth_week[0]["day"] < 10):
             next_week = 0
+            # and go to the next month
         else:
             next_week = 5
 
     elif(selected_week == 5):
+        # check to see that the first day is not < 10 if it isnt, the next week is 0 and the previous one is 5, if it is, set the week to be the previous week
         previous_week = 4
         next_week = 0
+        # the next week is the first week (selected_week=0) of the next month
         print("hit final week if")
 
 
