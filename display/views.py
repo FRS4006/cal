@@ -11,11 +11,13 @@ today = date.today()
 
 def initial(request):
     # sets the initially displayed month to be the current month of the current year
-    return redirect('home', input_selected_month=today.month, input_selected_year=today.year)
+    week = today.day//7
+    return redirect('home', input_selected_month=today.month, input_selected_year=today.year, input_selected_week=week)
 
-def home(request, input_selected_month, input_selected_year):
+def home(request, input_selected_month, input_selected_year, input_selected_week):
     selected_month = input_selected_month
     selected_year = input_selected_year
+    selected_week = input_selected_week
     # will be subject to change based on selection
 
     if(selected_month==1):
@@ -146,28 +148,66 @@ def home(request, input_selected_month, input_selected_year):
         else:
             sixth_week.append(enumerator[1])
 
+    if(selected_week == 0):
+        previous_week=6
+        next_week=1
+    elif(selected_week == 1):
+        previous_week = 0
+        next_week = 2
+    elif(selected_week == 2):
+        previous_week = 1
+        next_week = 3
+    elif(selected_week == 3):
+        previous_week = 2
+        next_week = 4
+    elif(selected_week == 4):
+        previous_week = 3
+        next_week = 5
+        if(sixth_week[0] and sixth_week[0]["day"] < 10):
+            next_week = 0
+        else:
+            next_week = 5
+
+    elif(selected_week == 5):
+        previous_week = 4
+        next_week = 0
+        print("hit final week if")
+
+
+
             
-    return render(request, 'hometwo.html', {'json_display_events': json_display_events, 'selected_year': selected_year,'selected_month': selected_month,'all_days': all_days, "first_week": first_week, 'second_week': second_week, 'third_week': third_week, 'fourth_week': fourth_week, 'fifth_week': fifth_week, 'sixth_week': sixth_week, 'display_events': display_events, 'next_month': next_month, 'previous_month': previous_month})
+    return render(request, 'hometwo.html', {'json_display_events': json_display_events, 'previous_week': previous_week, 'next_week': next_week,'selected_week': selected_week,'selected_year': selected_year,'selected_month': selected_month,'all_days': all_days, "first_week": first_week, 'second_week': second_week, 'third_week': third_week, 'fourth_week': fourth_week, 'fifth_week': fifth_week, 'sixth_week': sixth_week, 'display_events': display_events, 'next_month': next_month, 'previous_month': previous_month})
 
 
 # to control the calendar buttons
-def next(request, next_month, selected_year):
+def next_month(request, next_month, selected_year, selected_week):
     if request.method == 'POST':
         if(next_month == 1):
             selected_year = selected_year + 1
         #checking to see if the next year needs to be started
 
-    return redirect('home', input_selected_month=next_month, input_selected_year=selected_year)
+    return redirect('home', input_selected_month=next_month, input_selected_year=selected_year, input_selected_week = selected_week)
 
 
-def previous(request, previous_month, selected_year):
+def previous_month(request, previous_month, selected_year, selected_week):
     if request.method == 'POST':
         if(previous_month == 12):
             selected_year = selected_year-1
             #checking to make sure that it does not have to go back to a previous year
 
-    return redirect('home', input_selected_month=previous_month, input_selected_year=selected_year)
+    return redirect('home', input_selected_month=previous_month, input_selected_year=selected_year, input_selected_week = selected_week)
 
     
-    
+
+def next_week(request, next_month, selected_month, selected_year, next_week):
+    if request.method == 'POST':
+        print(next_week)
+
+    return redirect('home', input_selected_month=selected_month, input_selected_year=selected_year, input_selected_week = next_week)
+
+
+def previous_week(request, previous_month, selected_month, selected_year, previous_week):
+    if request.method == 'POST':
+        print(previous_week)
+    return redirect('home', input_selected_month=selected_month, input_selected_year=selected_year, input_selected_week = previous_week)
     

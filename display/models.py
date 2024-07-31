@@ -7,7 +7,7 @@ class CalendarEvent(models.Model):
     date_of_event = models.DateTimeField(default=timezone.now)
     zoom_url = models.URLField(blank=True)
     location = models.CharField(max_length=100)
-    description = models.CharField(max_length=100, null= True)
+    description = models.TextField(null= True)
 
 
     def __str__(self):

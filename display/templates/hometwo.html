@@ -96,6 +96,18 @@
         .week-calendar-holder{
           display: none;
         }
+        #previous_week_selector_holder{
+          display: none;
+        }
+        #next_week_selector_holder{
+          display: none;
+        }
+        #previous_month_selector_holder{
+          display: inline-block;
+        }
+        #next_month_selector_holder{
+          display: inline-block;
+        }
       }
       @media screen and (min-width: 768px) and (max-width: 1199.9px) {
         body{
@@ -178,6 +190,21 @@
         .week-calendar-holder{
           display: none;
         }
+        .month-calendar-holder{
+          display: block;
+        }
+        #previous_week_selector_holder{
+          display: none;
+        }
+        #next_week_selector_holder{
+          display: none;
+        }
+        #previous_month_selector_holder{
+          display: inline-block;
+        }
+        #next_month_selector_holder{
+          display: inline-block;
+        }
       }
       @media screen and (max-width: 767.9px){
         .month-calendar-holder{
@@ -193,41 +220,165 @@
           min-width: 500px;
           /* display: inline; */
         }
+
+        .dot {
+          height: 2.5vh;
+          width: 2.5vh;
+          border-radius: 50%;
+          display: inline-block;
+        }
+        /* this creates the shape of the event circles */
+
+        .red{
+          background-color: #1cdf26;
+        }
+        .gray{
+          background-color: #8b8989;
+        }
+        .blue{
+          background-color: #4382e0;
+        }
+        /* these are for coloring the nodes that represent the events */
+        
+        .container{
+          /* this also pulls from the bootstrap library for some additional effects */
+          border-style: solid;
+          border-color: rgb(146, 145, 145);
+          border-width: .5vw;
+          border-radius: 5%;
+          height: 14vh;
+          width: 14vh;
+          padding-top: 1vh;
+          padding-left: 1vh;
+          text-align: left;
+        }
+        /* for the outlines of the containers holding the spans */
+
+        .today{
+          border-color: black;
+          border-width: .8vw;
+        }
+        /* the highlight for today */
+
+        .other_month{
+          border-color: rgb(233, 229, 229);
+        }
+        /* to show the difference between the current month and next month */
+
+        .col{
+          min-width: 0;
+          text-align: center;
+          vertical-align: middle;
+        /* they will flex if you do not set this */
+
+            padding-left: 1vh;
+            padding-right: 1vh;
+          /* to make the side of the nice outlined squares */
+        }
+        .row{
+          margin-left: 0;
+          margin-right: 0;
+          /* to remove the margin bootstrap gives the rows */
+
+          padding-top: 1vh;
+          /*  to add an equal padding to the squares on the top */
+        }
+        .month-calendar-holder{
+          display: none;
+        }
+        .week-calendar-holder{
+          display: inline-block;
+        }
+        #previous_week_selector_holder{
+          display: inline-block;
+        }
+        #next_week_selector_holder{
+          display: inline-block;
+        }
+        #previous_month_selector_holder{
+          display: none;
+        }
+        #next_month_selector_holder{
+          display: none;
+        }
       }
-
-
 
     </style>
   </head>
   <body>
-    <div class  ="week-calendar-holder">
+
+
+
+    <div class ="title holder">
       <div class="row">
         <!-- Row that holds the columns for the month selector -->
 
-        <div class="col">
+        <div id ="previous_month_selector_holder" class="col">
           <!-- column for the previous button -->
-          <form method="post" action="{% url 'previous' previous_month=previous_month selected_year=selected_year %}">
+          <form method="post" action="{% url 'previous_month' previous_month=previous_month selected_year=selected_year selected_week=selected_week %}">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" name="previous"><i class="bi bi-arrow-left"></i></button>
+            <button type="submit" name="previous_month"><i class="bi bi-arrow-left"></i></button>
           </form>
           <!-- this form sends you to the previous month -->
         </div>
+
+        <div id ="previous_week_selector_holder" class="col">
+          <!-- column for the previous button -->
+
+
+          <form method="post" action="{% url 'previous_week' previous_month=previous_month selected_month=selected_month selected_year=selected_year previous_week=previous_week %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" name="previous_week"><i class="bi bi-arrow-left"></i></button>
+          </form>
+
+
+          <!-- this form sends you to the previous month -->
+          <h1> {{selected_week}} </h1>
+        </div>
+
+
 
         <div class="col">
           <!-- column for the month information at the top -->
           <h1 id="month_year_display">{{selected_year}}</h1>
         </div>
 
-        <div class="col">
+
+        
+        <div id ="next_week_selector_holder"  class="col">
           <!-- column for the next button -->
-          <form method="post" action="{% url 'next' next_month=next_month selected_year=selected_year %}">
+
+
+          <form method="post" action="{% url 'next_week' next_month=next_month selected_month=selected_month selected_year=selected_year next_week=next_week%}">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" name="next" > <i class="bi bi-arrow-right"></i></button>
+            <button type="submit" name="next_week" > <i class="bi bi-arrow-right"></i></button>
+            <!-- this form sends you to the next month -->
+          </form>
+          <h1> {{selected_week}} </h1>
+
+
+        </div>
+
+
+        <div id ="next_month_selector_holder" class="col">
+          <!-- column for the next button -->
+          <form method="post" action="{% url 'next_month' next_month=next_month selected_year=selected_year selected_week=selected_week%}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" name="next_month" > <i class="bi bi-arrow-right"></i></button>
             <!-- this form sends you to the next month -->
           </form>
         </div>
+      </div>
+    </div>
+
+
+    <div class  ="week-calendar-holder">
+      <div class="row">
+        <!-- Row that holds the columns for the month selector -->
       </div>
       <div class = "row horizontal-scrollable">
         <!-- The row that contains the example objects (The black today box and the example circle's) -->
@@ -277,41 +428,25 @@
               <div> Sa </div>
             </div>
           </div>
-          
+
+
+          <div class = "row">
+            {% for day in first_week %}
+              <div class = "col">
+                <div id={{day.day}}_{{day.month}}_1 class = "container">
+                  <text_span>{{day.day}}</text_span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+
         </div>
     </div>
 
-    
-    <div class  ="month-calendar-holder">
-      <div class="row">
-        <!-- Row that holds the columns for the month selector -->
 
-        <div class="col">
-          <!-- column for the previous button -->
-          <form method="post" action="{% url 'previous' previous_month=previous_month selected_year=selected_year %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" name="previous"><i class="bi bi-arrow-left"></i></button>
-          </form>
-          <!-- this form sends you to the previous month -->
-        </div>
 
-        <div class="col">
-          <!-- column for the month information at the top -->
-          <h1 id="month_year_display">{{selected_year}}</h1>
-        </div>
-
-        <div class="col">
-          <!-- column for the next button -->
-          <form method="post" action="{% url 'next' next_month=next_month selected_year=selected_year %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" name="next" > <i class="bi bi-arrow-right"></i></button>
-            <!-- this form sends you to the next month -->
-          </form>
-        </div>
-      </div>
-
+    <div class="month-calendar-holder">
 
       <div class = "row">
       <!-- The row that contains the example objects (The black today box and the example circle's) -->
