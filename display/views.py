@@ -167,51 +167,63 @@ def home(request, input_selected_month, input_selected_year, input_selected_week
         if(sixth_week[0] and sixth_week[0]["day"] < 10):
             next_week = 0
             # and go to the next month
+            selected_month+1
         else:
             next_week = 5
 
     elif(selected_week == 5):
         # check to see that the first day is not < 10 if it isnt, the next week is 0 and the previous one is 5, if it is, set the week to be the previous week
-        previous_week = 4
-        next_week = 0
+        if(sixth_week[0]["day"] > 10):
+            previous_week = 4
+            next_week = 0
         # the next week is the first week (selected_week=0) of the next month
-        print("hit final week if")
+        else:
+            selected_week = 4
+            previous_week = 3
+            next_week = 0
 
+        # when this logic is checked later, it should set the selected week to the previous week, so that a week from the current month is not populated again
 
-
+        # can test in march / 2025
             
     return render(request, 'hometwo.html', {'json_display_events': json_display_events, 'previous_week': previous_week, 'next_week': next_week,'selected_week': selected_week,'selected_year': selected_year,'selected_month': selected_month,'all_days': all_days, "first_week": first_week, 'second_week': second_week, 'third_week': third_week, 'fourth_week': fourth_week, 'fifth_week': fifth_week, 'sixth_week': sixth_week, 'display_events': display_events, 'next_month': next_month, 'previous_month': previous_month})
 
 
 # to control the calendar buttons
 def next_month(request, next_month, selected_year, selected_week):
-    if request.method == 'POST':
-        if(next_month == 1):
-            selected_year = selected_year + 1
-        #checking to see if the next year needs to be started
+    if(next_month == 1):
+        selected_year = selected_year + 1
+    #checking to see if the next year needs to be started
+
 
     return redirect('home', input_selected_month=next_month, input_selected_year=selected_year, input_selected_week = selected_week)
 
 
 def previous_month(request, previous_month, selected_year, selected_week):
-    if request.method == 'POST':
-        if(previous_month == 12):
-            selected_year = selected_year-1
-            #checking to make sure that it does not have to go back to a previous year
+    if(previous_month == 12):
+        selected_year = selected_year-1
+        #checking to make sure that it does not have to go back to a previous year
 
     return redirect('home', input_selected_month=previous_month, input_selected_year=selected_year, input_selected_week = selected_week)
 
     
 
-def next_week(request, next_month, selected_month, selected_year, next_week):
+def next_week(request, next_month, selected_month, selected_year, next_week, selected_week):
     if request.method == 'POST':
-        print(next_week)
+        if(selected_week == 5):
+            selected_month = next_month
+            return redirect('next_month', next_month=next_month, selected_year=selected_year, selected_week=selected_week)
+        print(next_month, selected_week+1)
 
     return redirect('home', input_selected_month=selected_month, input_selected_year=selected_year, input_selected_week = next_week)
 
 
-def previous_week(request, previous_month, selected_month, selected_year, previous_week):
+def previous_week(request, previous_month, selected_month, selected_year, previous_week, selected_week):
     if request.method == 'POST':
-        print(previous_week)
+        if (selected_week == 0):
+            selected_month = previous_month
+            print(previous_month)
+            return redirect('previous_month', previous_month=previous_month, selected_year=selected_year, selected_week = previous_week)
+
     return redirect('home', input_selected_month=selected_month, input_selected_year=selected_year, input_selected_week = previous_week)
     

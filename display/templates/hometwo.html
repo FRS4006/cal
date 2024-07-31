@@ -327,7 +327,7 @@
           <!-- column for the previous button -->
 
 
-          <form method="post" action="{% url 'previous_week' previous_month=previous_month selected_month=selected_month selected_year=selected_year previous_week=previous_week %}">
+          <form method="post" action="{% url 'previous_week' previous_month=previous_month selected_month=selected_month selected_year=selected_year previous_week=previous_week selected_week=selected_week %}">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" name="previous_week"><i class="bi bi-arrow-left"></i></button>
@@ -351,7 +351,7 @@
           <!-- column for the next button -->
 
 
-          <form method="post" action="{% url 'next_week' next_month=next_month selected_month=selected_month selected_year=selected_year next_week=next_week%}">
+          <form method="post" action="{% url 'next_week' next_month=next_month selected_month=selected_month selected_year=selected_year next_week=next_week selected_week=selected_week%}">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" name="next_week" > <i class="bi bi-arrow-right"></i></button>

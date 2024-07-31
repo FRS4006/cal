@@ -13,9 +13,9 @@ urlpatterns = [
     path('previous_month/<int:previous_month>/<int:selected_year>/<int:selected_week>', displayViews.previous_month, name='previous_month'),
     # This is to check that the previous month is not in the previous year, and then to display that previous month
 
-    path('next_week/<int:next_month>/<int:selected_month>/<int:selected_year>/<int:next_week>', displayViews.next_week, name='next_week'),
+    path('next_week/<int:next_month>/<int:selected_month>/<int:selected_year>/<int:next_week>/<int:selected_week>', displayViews.next_week, name='next_week'),
     # This is to check that the next week is not in the next month, and then to display that next week
-    path('previous_week/<int:previous_month>/<int:selected_month>/<int:selected_year>/<int:previous_week>', displayViews.previous_week, name='previous_week'),
+    path('previous_week/<int:previous_month>/<int:selected_month>/<int:selected_year>/<int:previous_week>/<int:selected_week>', displayViews.previous_week, name='previous_week'),
     # This is to check that the previous week is not in the previous month, and then to display that previous week
 
 ]
