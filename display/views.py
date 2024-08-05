@@ -148,27 +148,36 @@ def home(request, input_selected_month, input_selected_year, input_selected_week
         else:
             sixth_week.append(enumerator[1])
 
+
+    display_week = []
+    #for each version of selected week 0-5 set the previous week and next weeks 
     if(selected_week == 0):
         previous_week=5
         next_week=1
+        display_week = first_week
+
+
         # set the month to the previous month, then if the sixth week's first day is < 10 set the week to week 5 (selected_week =4) else selected week = 5
     elif(selected_week == 1):
         previous_week = 0
+        display_week = second_week
         next_week = 2
+
     elif(selected_week == 2):
         previous_week = 1
         next_week = 3
+        display_week = third_week
+
     elif(selected_week == 3):
         previous_week = 2
         next_week = 4
+        display_week = fourth_week
+
     elif(selected_week == 4):
         previous_week = 3
         next_week = 5
-        if(sixth_week[0] and sixth_week[0]["day"] < 10):
-            next_week = 0
-            # and go to the next month
-            selected_month+1
-        else:
+        display_week = fifth_week
+        if(sixth_week[0]["day"] < 10):
             next_week = 5
 
     elif(selected_week == 5):
@@ -176,12 +185,11 @@ def home(request, input_selected_month, input_selected_year, input_selected_week
         if(sixth_week[0]["day"] > 10):
             previous_week = 4
             next_week = 0
+            display_week = sixth_week
         # the next week is the first week (selected_week=0) of the next month
         else:
-            selected_week = 4
-            previous_week = 3
-            next_week = 0
-
+            selected_week = 0
+            return redirect('next_month', next_month=next_month, selected_year=selected_year, selected_week = selected_week)
         # when this logic is checked later, it should set the selected week to the previous week, so that a week from the current month is not populated again
 
         # can test in march / 2025
@@ -212,9 +220,9 @@ def next_week(request, next_month, selected_month, selected_year, next_week, sel
     if request.method == 'POST':
         if(selected_week == 5):
             selected_month = next_month
+            selected_week=0
             return redirect('next_month', next_month=next_month, selected_year=selected_year, selected_week=selected_week)
-        print(next_month, selected_week+1)
-
+        
     return redirect('home', input_selected_month=selected_month, input_selected_year=selected_year, input_selected_week = next_week)
 
 
@@ -222,7 +230,7 @@ def previous_week(request, previous_month, selected_month, selected_year, previo
     if request.method == 'POST':
         if (selected_week == 0):
             selected_month = previous_month
-            print(previous_month)
+            selected_week = 5
             return redirect('previous_month', previous_month=previous_month, selected_year=selected_year, selected_week = previous_week)
 
     return redirect('home', input_selected_month=selected_month, input_selected_year=selected_year, input_selected_week = previous_week)
