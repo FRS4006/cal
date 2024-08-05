@@ -20,6 +20,11 @@ def home(request, input_selected_month, input_selected_year, input_selected_week
     selected_week = input_selected_week
     # will be subject to change based on selection
 
+
+
+    # this can be a function
+
+
     if(selected_month==1):
         previous_month=12
         previous_month_day_finder = calendar.monthrange(selected_year-1, previous_month)
@@ -36,6 +41,10 @@ def home(request, input_selected_month, input_selected_year, input_selected_week
         next_month = selected_month + 1
     # make sure that next month is changed correctly to match the year changing
     # the number of days in the next month does not have to be calculated, so the day finder is not needed
+
+
+
+#  this can be a seperate funciton
 
 
     date_info = calendar.monthrange(selected_year, selected_month)
@@ -61,6 +70,13 @@ def home(request, input_selected_month, input_selected_year, input_selected_week
         display_first_day = previous_month_day_finder[1] - number_of_days_of_previous_month
         # set the first day in the display to be the total number of days in the month minus the number of days that will be displayed from the previous month
 
+
+
+
+
+
+
+
     previous_months_days = []
     current_months_days = []
     next_months_days = []
@@ -83,6 +99,15 @@ def home(request, input_selected_month, input_selected_year, input_selected_week
         all_days.append({'day': day, 'event': "", 'month':next_month})
 
     
+
+
+
+
+
+
+
+
+
     calendarevent_all = CalendarEvent.objects.all()
     # find all of the events
     display_events = []
@@ -120,9 +145,11 @@ def home(request, input_selected_month, input_selected_year, input_selected_week
         # these commented out pieces would be to add the logic for displaying from the past months and next months events as well
 
 
+
+#  can be a seperate function
+
+
     json_display_events = json.dumps(display_events)
-
-
 
     enumeration_test = list(enumerate(all_days, start=1))
     # for each of the days that are currently in order in the list of days to be displayed, make an array that contains all of their numbers's corresponding to index's in the list
@@ -147,6 +174,13 @@ def home(request, input_selected_month, input_selected_year, input_selected_week
             fifth_week.append(enumerator[1])
         else:
             sixth_week.append(enumerator[1])
+
+
+
+
+#  can be a seperate function
+
+
 
     if(selected_week == 0):
         previous_week=5
